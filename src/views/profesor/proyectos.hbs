@@ -82,42 +82,49 @@
       <li>
         <i class="bx bx-edit"></i>
         <span class="text">
-          <h3>0</h3>
+          <h3>{{obj.length}}</h3>
           <p>Proyectos</p>
         </span>
       </li>
     </ul>
 
     <div class="table-data">
+
       <div class="order">
         <div class="head">
           <h3>Proyectos Registrados</h3>
         </div>
 
         <table>
-          <thead>
-            <tr>
-              <th>Proyecto</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><a
-                  href="/profesor/viewPP"
-                  class="hover:bg-bright-red"
-                >Null</a></td>
-            </tr>
-            <tr>
-              <td><a href="/profesor/viewPP" class="hover:bg-bright-red">Machine
-                  Lerning</a></td>
-            </tr>
-            <tr>
-              <td><a
-                  href="/profesor/viewPP"
-                  class="hover:bg-bright-red"
-                >Null</a></td>
-            </tr>
-          </tbody>
+          {{#if obj}}
+            <thead>
+              <tr>
+                <th>Proyecto</th>
+                <th>Fecha creación</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {{#each obj}}
+                <tr>
+                  <td>
+
+                    <a
+                      href="/profesor/viewPP/{{id_proyecto}}"
+                      class="hover:bg-bright-red text-xs"
+                    >{{nombre}}</a>
+                  </td>
+                  <td>
+                    {{timeago fecha_creacion}}
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          {{else}}
+
+            <h3 class="text-2xl font-bold text-center p-6">No existen proyectos
+              actualmente</h3>
+          {{/if}}
         </table>
       </div>
 
@@ -129,10 +136,14 @@
         <div
           class="container w-full h-full bg-bright-red mt-6 rounded-xl shadow-2xl shadow-black flex justify-center"
         >
-          <form action="" method="POST" class="flex flex-col p-6 gap-4">
+          <form
+            action="/profesor/proyectos"
+            method="POST"
+            class="flex flex-col p-6 gap-4"
+          >
             <input
               type="text"
-              name=""
+              name="nombre_proyecto"
               id=""
               placeholder="Nombre de proyecto"
               class="rounded-md text-center p-2 mb-4 text-black"
@@ -141,6 +152,7 @@
 
             <textarea
               id="message"
+              name="introduccion"
               rows="6"
               class="block p-2 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
               placeholder="Ingresa la introducción del proyecto..."

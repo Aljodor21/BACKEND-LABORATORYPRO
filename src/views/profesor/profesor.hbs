@@ -21,7 +21,7 @@
   </ul>
   <ul class="side-menu">
     <li>
-      <a href="#" class="logout">
+      <a href="/login/cerrars" class="logout">
         <i class="bx bxs-log-out-circle"></i>
         <span class="text">Cerrar sesión</span>
       </a>
@@ -82,7 +82,7 @@
       <li>
         <i class="bx bxs-group"></i>
         <span class="text">
-          <h3>30</h3>
+          <h3>{{obj.length}}</h3>
           <p>Integrantes</p>
         </span>
       </li>
@@ -95,63 +95,31 @@
           <h3>Integrantes Registrados</h3>
         </div>
         <table>
-          <thead>
-            <tr>
-              <th>Integrante</th>
-              <th>Fecha Inicio</th>
-              <th>Código</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <img src="/images/admin/people.png" />
-                <p>John Doe</p>
-              </td>
-              <td>Null</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>
-                <img src="/images/admin/people.png" />
-                <p>John Doe</p>
-              </td>
-              <td>Machine Learning</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>
-                <img src="/images/admin/people.png" />
-                <p>John Doe</p>
-              </td>
-              <td>Null</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>
-                <img src="/images/admin/people.png" />
-                <p>John Doe</p>
-              </td>
-              <td>Null</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>
-                <img src="/images/admin/people.png" />
-                <p>John Doe</p>
-              </td>
-              <td>Null</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>
-                <img src="/images/admin/people.png" />
-                <p>John Doe</p>
-              </td>
-              <td>Null</td>
-              <td>1</td>
-            </tr>
-          </tbody>
+          {{#if obj}}
+            <thead>
+              <tr>
+                <th>Integrante</th>
+                <th>Fecha Inicio</th>
+                <th>Código</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each obj}}
+                <tr>
+                  <td>
+                    <img src="/images/admin/people.png" />
+                    <p>{{nombre_usuario}} {{papellido}}</p>
+                  </td>
+                  <td>{{timeago fecha_registro}}</td>
+                  <td>{{id_usuario}}</td>
+                </tr>
+              {{/each}}
+
+            </tbody>
+          {{else}}
+            <h3 class="text-2xl font-bold text-center p-6">No existen
+              integrantes actualmente</h3>
+          {{/if}}
         </table>
       </div>
 
