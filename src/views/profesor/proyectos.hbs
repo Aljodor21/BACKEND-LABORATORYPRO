@@ -1,0 +1,163 @@
+<!-- SIDEBAR -->
+<section id="sidebar">
+  <a href="/" class="brand py-3">
+    <i class="bx bx-rocket"></i>
+    <span class="text">Laboratory Pro</span>
+  </a>
+
+  <ul class="side-menu top">
+    <li>
+      <a href="/profesor" id="b1">
+        <i class="bx bx-user-circle"></i>
+        <span class="text">Integrantes</span>
+      </a>
+    </li>
+    <li class="active">
+      <a href="/profesor/proyectos" id="b3">
+        <i class="bx bxs-group"></i>
+        <span class="text">Proyectos</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="side-menu">
+    <li>
+      <a href="#" class="logout">
+        <i class="bx bxs-log-out-circle"></i>
+        <span class="text">Cerrar sesión</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- SIDEBAR -->
+
+<!-- CONTENT -->
+<section id="content">
+  <!-- NAVBAR -->
+  <nav class="flex justify-between">
+    <div>
+      <i class="bx bx-menu"></i>
+      <a href="#" class="nav-link">Docente</a>
+    </div>
+
+    <!--Necesario para el funcionamiento de la app, pero no se ve, por eso utiliza la clase hidden-->
+    <form action="#" class="hidden">
+      <div class="form-input">
+        <input type="search" placeholder="Search..." />
+        <button type="submit" class="search-btn">
+          <i class="bx bx-search"></i>
+        </button>
+      </div>
+    </form>
+
+    <div class="flex items-center gap-6">
+      <input type="checkbox" id="switch-mode" hidden />
+      <label for="switch-mode" class="switch-mode"></label>
+
+      <a href="../perfil/perfil.html" class="profile">
+        <img src="/images/admin/people.png" />
+      </a>
+    </div>
+  </nav>
+  <!-- NAVBAR -->
+
+  <!-- MAIN 1-->
+  <main id="section1">
+    <div class="head-title">
+      <div class="left">
+        <h1>Proyectos</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Docente</a>
+          </li>
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <p class="text-bright-red">Proyectos</p>
+            <!--<a class="active" href="#"></a>-->
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="box-info">
+      <li>
+        <i class="bx bx-edit"></i>
+        <span class="text">
+          <h3>0</h3>
+          <p>Proyectos</p>
+        </span>
+      </li>
+    </ul>
+
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <h3>Proyectos Registrados</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Proyecto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a
+                  href="/profesor/viewPP"
+                  class="hover:bg-bright-red"
+                >Null</a></td>
+            </tr>
+            <tr>
+              <td><a href="/profesor/viewPP" class="hover:bg-bright-red">Machine
+                  Lerning</a></td>
+            </tr>
+            <tr>
+              <td><a
+                  href="/profesor/viewPP"
+                  class="hover:bg-bright-red"
+                >Null</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="todo h-full">
+        <div class="head">
+          <h3>Crear Proyectos</h3>
+        </div>
+
+        <div
+          class="container w-full h-full bg-bright-red mt-6 rounded-xl shadow-2xl shadow-black flex justify-center"
+        >
+          <form action="" method="POST" class="flex flex-col p-6 gap-4">
+            <input
+              type="text"
+              name=""
+              id=""
+              placeholder="Nombre de proyecto"
+              class="rounded-md text-center p-2 mb-4 text-black"
+              required
+            />
+
+            <textarea
+              id="message"
+              rows="6"
+              class="block p-2 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
+              placeholder="Ingresa la introducción del proyecto..."
+              required
+            ></textarea>
+
+            <button
+              type="submit"
+              class="w-full text-center py-2 rounded bg-dark-blue text-white hover:bg-dark-grayish-blue"
+            >
+              Crear
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->

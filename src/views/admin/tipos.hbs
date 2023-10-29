@@ -1,0 +1,172 @@
+<!-- SIDEBAR -->
+<section id="sidebar">
+  <a href="/" class="brand py-3">
+    <i class="bx bx-rocket"></i>
+    <span class="text">Laboratory Pro</span>
+  </a>
+
+  <ul class="side-menu top">
+    <li>
+      <a href="/admin" id="b1">
+        <i class="bx bx-registered"></i>
+        <span class="text">Solicitudes</span>
+      </a>
+    </li>
+    <li>
+      <a href="/admin/registrados" id="b1">
+        <i class="bx bx-user"></i>
+        <span class="text">Registrados</span>
+      </a>
+    </li>
+    <li>
+      <a href="/admin/estados" id="b2">
+        <i class="bx bx-stats"></i>
+        <span class="text">Estados</span>
+      </a>
+    </li>
+
+    <li class="active">
+      <a href="/admin/tipos" id="b2">
+        <i class="bx bx-station"></i>
+        <span class="text">Tipos</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="side-menu">
+    <li>
+      <a href="#" class="logout hover:bg-dark-grayish-blue">
+        <i class="bx bxs-log-out-circle"></i>
+        <span class="text">Cerrar sesión</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- SIDEBAR -->
+
+<!-- CONTENT -->
+<section id="content">
+  <!-- NAVBAR -->
+  <nav class="flex justify-between">
+    <div>
+      <i class="bx bx-menu"></i>
+      <a href="#" class="nav-link">Administrador</a>
+    </div>
+
+    <!--Necesario para el funcionamiento de la app, pero no se ve, por eso utiliza la clase hidden-->
+    <form action="#" class="hidden">
+      <div class="form-input">
+        <input type="search" placeholder="Search..." />
+        <button type="submit" class="search-btn">
+          <i class="bx bx-search"></i>
+        </button>
+      </div>
+    </form>
+
+    <!--Imagen del navbar-->
+    <div class="flex items-center gap-6">
+      <input type="checkbox" id="switch-mode" hidden />
+      <label for="switch-mode" class="switch-mode"></label>
+
+      <a href="./userA.html" class="profile">
+        <img src="/images/admin/people.png" />
+      </a>
+    </div>
+  </nav>
+  <!-- NAVBAR -->
+
+  <!-- MAIN 1-->
+  <main id="section1">
+    <div class="head-title">
+      <div class="left">
+        <h1>Tipos</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Administrador</a>
+          </li>
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <p class="text-bright-red">Tipos de usuarios</p>
+            <!--<a class="active" href="#"></a>-->
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    {{#if obj}}
+      <div class="container w-auto h-auto mt-6">
+
+        <div class="overflow-auto rounded-lg">
+
+          <table class="w-full h-auto rounded-xl shadow-xl">
+
+            <thead class="bg-gray-50 border-b-2 border-gray-200">
+              <tr>
+                <th
+                  class="p-3 text-sm font-semibold tracking-wide text-left"
+                >Código tipos</th>
+                <th
+                  class="p-3 text-sm font-semibold tracking-wide text-left"
+                >Nombre </th>
+                <th
+                  class="p-3 text-sm font-semibold tracking-wide text-left"
+                >Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each obj}}
+                <tr class="bg-white">
+                  <td class="p-3 text-sm text-gray-700                                ">{{id_tipo}}</td>
+                  <td class="p-3 text-sm text-gray-700">{{nombre}}</td>
+
+                  <td class="p-3 font-bold flex gap-5">
+                    <a title="Editar" href="/admin/editTipos/{{id_tipo}}"><i
+                        class="hover:bg-orange-400 bx bx-edit-alt"
+                      ></i></a>
+                    <a title="Eliminar" href="/admin/borrarTipo/{{id_tipo}}"><i class="hover:bg-red-400 bx bx-x"></i></a>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {{else}}
+      <h3 class="text-2xl font-bold text-center p-6">No existen tipos
+        actualmente</h3>
+    {{/if}}
+
+    <div
+      class="container mx-auto bg-bright-red mt-6 rounded-xl shadow-2xl shadow-black flex justify-center sm:w-auto md:w-[50%]"
+    >
+      <form action="/admin/tipos" method="POST" class="flex flex-col p-6 gap-4 md:w-[80%]">
+        <input
+          type="number"
+          name="id_tipo"
+          id=""
+          placeholder="Código tipo *"
+          class="rounded-md text-center p-2 mb-4 text-black"
+          required
+        />
+
+        <input
+          type="text"
+          name="tipo"
+          id=""
+          placeholder="Nombre tipo *"
+          class="rounded-md text-center p-2 mb-4 text-black"
+          required
+        />
+
+        <button
+          type="submit"
+          class="w-full text-center py-2 rounded bg-dark-blue text-white hover:bg-dark-grayish-blue"
+        >
+          Crear
+        </button>
+      </form>
+    </div>
+
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->

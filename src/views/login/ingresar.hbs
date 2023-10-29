@@ -1,0 +1,73 @@
+<section class="min-h-screen flex items-center justify-center">
+
+  <!--Contenedor del login-->
+  <div
+    class="bg-white flex rounded-2xl shadow-2xl shadow-black max-w-3xl p-5 items-center"
+  >
+    <!--Formulario de login-->
+    <div class="md:w-1/2 px-16">
+
+      <div class="flex flex-col items-stretch gap-4">
+        <a href="/" class="w-1/2 h-1/2 py-2.5 self-end">
+          <img src="/images/inicio/logo.png" alt="" width="300px" />
+        </a>
+
+        <h2 class="font-bold text-2xl text-bright-red">
+          Ingresar
+        </h2>
+
+      </div>
+      
+
+      <!--Formulario que va al backend para comprobar que si este registrado-->
+      <form action="/login" method="POST" class="flex flex-col gap-4">
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Correo *"
+          class="p-2 mt-8 rounded-xl border"
+          required
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Contraseña *"
+          class="p-2 rounded-xl w-full border"
+          required
+        />
+
+        <button
+          type="submit"
+          class="bg-bright-red text-white py-2 hover:scale-105 duration-300 rounded-xl"
+        >
+          Ingresar
+        </button>
+      </form>
+
+      <div class="mt-10 grid grid-cols-3 items-center text-dark-grayish-blue">
+        <hr class="border-dark-grayish-blue" />
+        <p class="text-center text-sm">O</p>
+        <hr class="border-dark-grayish-blue" />
+      </div>
+
+      <div class="mt-3 text-xs flex justify-between items-center">
+        <p>No tienes una cuenta...</p>
+        <a href="/login/registro">
+          <button
+            class="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300"
+          >
+            Registrar
+          </button>
+        </a>
+      </div>
+    </div>
+
+    <!--Imagen del login-->
+    <div class="md:block hidden w-1/2 p-5">
+      <img class="rounded-2xl" src="/images/login/login.svg" alt="" />
+    </div>
+  </div>
+
+</section>

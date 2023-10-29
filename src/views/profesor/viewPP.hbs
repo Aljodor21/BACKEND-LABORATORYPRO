@@ -1,0 +1,132 @@
+<!-- SIDEBAR -->
+<section id="sidebar">
+  <a href="/" class="brand py-3">
+    <i class="bx bx-rocket"></i>
+    <span class="text">Laboratory Pro</span>
+  </a>
+
+  <ul class="side-menu top">
+    <li>
+      <a href="/profesor/proyectos" id="b1">
+        <i class="bx bx-user-circle"></i>
+        <span class="text">Integrantes</span>
+      </a>
+    </li>
+    <li class="active">
+      <a href="/profesor/proyectos" id="b3">
+        <i class="bx bxs-group"></i>
+        <span class="text">Proyectos</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="side-menu">
+    <li>
+      <a href="#" class="logout">
+        <i class="bx bxs-log-out-circle"></i>
+        <span class="text">Cerrar sesión</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- SIDEBAR -->
+
+<!-- CONTENT -->
+<section id="content">
+  <!-- NAVBAR -->
+  <nav class="flex justify-between">
+    <div>
+      <i class="bx bx-menu"></i>
+      <a href="#" class="nav-link">Docente</a>
+    </div>
+
+    <!--Necesario para el funcionamiento de la app, pero no se ve, por eso utiliza la clase hidden-->
+    <form action="#" class="hidden">
+      <div class="form-input">
+        <input type="search" placeholder="Search..." />
+        <button type="submit" class="search-btn">
+          <i class="bx bx-search"></i>
+        </button>
+      </div>
+    </form>
+
+    <div class="flex items-center gap-6">
+      <input type="checkbox" id="switch-mode" hidden />
+      <label for="switch-mode" class="switch-mode"></label>
+
+      <a href="../perfil/perfil.html" class="profile">
+        <img src="/images/admin/people.png" />
+      </a>
+    </div>
+  </nav>
+  <!-- NAVBAR -->
+
+  <!-- MAIN 1-->
+  <main id="section1">
+    <div class="head-title">
+      <div class="left">
+        <h1>Proyectos</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Docente</a>
+          </li>
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <p class="text-bright-red">Visualizar Proyectos</p>
+            <!--<a class="active" href="#"></a>-->
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="container bg-bright-red mx-auto shadow-2xl shadow-black flex flex-col justify-center justify-items-center content-center rounded-xl mt-2"
+    >
+
+      <h2 class="text-2xl font-bold text-center p-4">Nombre del Proyecto</h2>
+
+      <div class="p-6">
+        <label for="desc" class="text-xl font-semibold">Descripción del proyecto</label>
+        <p id="desc" class="bg-white rounded-xl p-3">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos,
+          consequatur fuga earum placeat adipisci, nam repellendus nostrum optio
+          omnis aspernatur tempora alias sunt? Delectus autem omnis, quam dicta
+          fuga hic.
+        </p>
+      </div>
+
+      <div class="p-6">
+        <label for="desc" class="text-xl font-semibold">Avance 1</label>
+        <p id="desc" class="bg-white rounded-xl p-3">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos,
+          consequatur fuga earum placeat adipisci, nam repellendus nostrum optio
+          omnis aspernatur tempora alias sunt? Delectus autem omnis, quam dicta
+          fuga hic.
+        </p>
+      </div>
+
+      <div class="p-6">
+        <label for="desc" class="text-xl font-semibold">Avance 2</label>
+        <p id="desc" class="bg-white rounded-xl p-3">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos,
+          consequatur fuga earum placeat adipisci, nam repellendus nostrum optio
+          omnis aspernatur tempora alias sunt? Delectus autem omnis, quam dicta
+          fuga hic.
+        </p>
+      </div>
+
+      <div class="p-6 mb-4">
+        <label for="desc" class="text-xl font-semibold">Avance 3</label>
+        <p id="desc" class="bg-white rounded-xl p-3">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos,
+          consequatur fuga earum placeat adipisci, nam repellendus nostrum optio
+          omnis aspernatur tempora alias sunt? Delectus autem omnis, quam dicta
+          fuga hic.
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->

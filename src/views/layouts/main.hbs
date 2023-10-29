@@ -1,0 +1,33 @@
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laboratory Pro</title>
+
+    
+    {{!Css tailwind css}}
+    <link rel="stylesheet" href="/css/output.css" />
+
+    {{!Fuentes de nuestro proyecto}}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+  </head>
+
+  <body class="font-principal">
+
+    {{>alertas}}
+
+    {{{body}}}
+
+    {{!Script de nuestras alertas}}
+    <script src="/js/alerts.js"></script>
+
+  </body>
+
+</html>

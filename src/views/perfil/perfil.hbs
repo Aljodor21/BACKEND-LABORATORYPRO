@@ -1,0 +1,44 @@
+<div class="flex justify-center items-center h-auto w-auto gap-2 py-4">
+
+  <div class="max-w-sm bg-bright-red border rounded-lg shadow-2xl shadow-black ">
+
+    <div>
+      <img
+        src="/images/admin/people.png"
+        width="300px"
+        alt="logo"
+        class="rounded-lg shadow-xl w-full"
+      />
+    </div>
+
+    <div class="flex flex-col items-center gap-2 p-4">
+      <div class="mt-2">
+        <h2 class="font-bold text-xl">{{user.[1]}} {{user.[2]}}</h2>
+      </div>
+
+      <div class="flex gap-2">
+        <p class="font-bold">Tipo de cuenta: </p>
+        <p class="text-center">{{tipo user.[7]}}</p>
+      </div>
+      <div class="flex gap-2">
+        <p class="font-bold">Fecha de creación: </p>
+        <p class="text-center">{{timeago user.[6]}}</p>
+      </div>
+      <div class="flex gap-2 mb-2">
+        <p class="font-bold">Correo de registro: </p>
+        <p class="text-center">{{user.[4]}}</p>
+      </div>
+
+      <div>
+        <a href="/">
+          <button
+            class="bg-white rounded-md hover:bg-dark-blue hover:scale-110 duration-300 py-2 px-5 font-bold"
+          >
+            Inicio
+          </button>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

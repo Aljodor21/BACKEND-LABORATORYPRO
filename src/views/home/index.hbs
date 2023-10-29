@@ -1,0 +1,257 @@
+<!--Sección de barra de navegación y header de nuestra pagina de modo responsive -->
+<header>
+  {{> navbars}}
+
+  <!--Sección principal de nuestra pagina hero-->
+  <section
+    id="inicio"
+    class="wrapper grid gap-8 justify-items-center items-center pb-12 md:grid-cols-2 md:py-24"
+  >
+    <img
+      src="/images/inicio/illustration-intro.svg"
+      alt=""
+      class="w-full max-w-lg md:order-1"
+    />
+
+    <article class="text-center space-y-6 md:text-left md:space-y-8">
+      <h1 class="text-4xl font-bold text-very-dark-blue md:text-5xl">
+        Semillero de investigación en ingeniería de software.
+      </h1>
+
+      <p class="text-dark-grayish-blue">
+        LaboratoryPro facilita de manera eficiente la creación, actualización y
+        administración de proyectos de investigación desde cualquier lugar.
+      </p>
+      <a
+        href="/login"
+        class="mx-auto button shadow-xl shadow-bright-red/30 md:mx-0"
+      >
+        Ingresar
+      </a>
+    </article>
+  </section>
+
+</header>
+
+<!--Section con figura de fondo para dar mas estilo a la pagina-->
+<figure class="absolute inset-0 overflow-hidden pointer-events-none">
+  <img
+    src="/images/inicio/bg-tablet-pattern.svg"
+    class="absolute w-full -z-10 -top-24 -right-1/4 max-w-2xl"
+    alt=""
+  />
+</figure>
+
+<!--Sección main de nuestra pagina, donde va a estar la información fundamental de nuestra pagina-->
+<main>
+
+  <!--En esta sección creamos la importancia de nuestro software y que hacemos de diferente a los demas-->
+  <section
+    class="wrapper text-center py-24 grid gap-12 md:grid-cols-2 md:text-left"
+    id="acerca"
+  >
+
+    <!--Titulo de nuestra sección-->
+    <article>
+      <h2 class="text-3xl font-bold text-very-dark-blue mb-6 md:text-4xl">¿Qué
+        hacemos de diferente?</h2>
+      <p class="text-dark-grayish-blue">
+        LaboratoryPro proporciona todas las funcionalidades que su equipo de
+        investigación necesita. Nuestro aplicativo web está diseñado para los
+        proyectos de investigación modernos.
+      </p>
+    </article>
+
+    <!--Contenedor de nuestros articulos de importancia-->
+    <div class="grid gap-12">
+
+      <article class="space-y-4 md:space-y-6">
+
+        <p
+          class="bg-very-pale-red rounded-l-full font-bold flex items-center md:bg-transparent"
+        >
+          <span
+            class="bg-bright-red text-white px-6 rounded-full py-2"
+          >01</span>
+          <span class="flex-1 p-2">Registro en nuestra aplicación</span>
+        </p>
+
+        <p class="text-dark-grayish-blue text-left">
+          Podrá registrarse en nuestro aplicativo web, donde tendrá la
+          posibilidad de ser un estudiante o un profesor, pero va a quedar a
+          disposición de la aceptación de un administrador.
+        </p>
+      </article>
+
+      <article class="space-y-4 md:space-y-6">
+
+        <p
+          class="bg-very-pale-red rounded-l-full font-bold flex items-center md:bg-transparent"
+        >
+          <span
+            class="bg-bright-red text-white px-6 rounded-full py-2"
+          >02</span>
+          <span class="flex-1 p-2">Asignación de proyectos</span>
+        </p>
+
+        <p class="text-dark-grayish-blue text-left">
+          Luego de estar registrado en nuestra aplicación, podremos asignar
+          proyectos a estudiantes en caso de ser profesor, en caso contrario,
+          como lo dijimos, tendremos la posibilidad de hacer parte de un
+          proyecto de investigación.
+        </p>
+      </article>
+
+      <article class="space-y-4 md:space-y-6">
+
+        <p
+          class="bg-very-pale-red rounded-l-full font-bold flex items-center md:bg-transparent"
+        >
+          <span
+            class="bg-bright-red text-white px-6 rounded-full py-2"
+          >03</span>
+          <span class="flex-1 p-2">Control de avances</span>
+        </p>
+
+        <p class="text-dark-grayish-blue text-left">
+          Ofrecemos la posibilidad de manejar los avances de cada proyecto,
+          permitiendo subir tres avances. Además, podremos ir visualizando cada
+          uno de estos, con el fin de manejar un control del mismo.
+        </p>
+      </article>
+
+    </div>
+
+  </section>
+
+  <!--En esta sección vamos a hablar un poco de quien es el director de nuestro semillero y lo vamos a presentar en una pequeña imagen-->
+  <section
+    class="wrapper text-center py-24 max-w-lg mx-auto md:max-w-xl"
+    id="sobre"
+  >
+
+    <h2 class="text-3xl font-bold text-very-dark-blue md:text-4xl">
+      ¿Cómo lo hacemos?
+    </h2>
+
+    <div class="mt-24 mb-14">
+
+      <article class="bg-vary-light-gray pt-16 pb-12 px-4 relative">
+
+        <img
+          src="./images/admin/people.png"
+          alt="Director Semillero"
+          class="absolute w-24 aspect-square -top-12 inset-x-0 mx-auto rounded-xl"
+        />
+
+        <h3 class="text-xl mb-4 pt-2 font-bold text-very-dark-blue">Jorge E.
+          Giraldo</h3>
+        <p class="text-dark-grayish-blue">"Gracias a nuestro profesor líder,
+          podemos estar a la vanguardia en las últimas tecnologías que valen la
+          pena ser investigadas, en pro de obtener información que sea útil y
+          aplicable a nuestros campos. Con este presente, podemos asignar
+          proyectos de valor a nuestros integrantes."</p>
+      </article>
+
+    </div>
+
+    <a
+      class="button mx-auto shadow-xl shadow-bright-red/30"
+      href="login.html"
+    >Ingresar</a>
+  </section>
+
+  <!--En esta sección damos un mensaje de motivación para el registro de estudiantes en el semillero-->
+  <section class="bg-bright-red font-bold">
+
+    <div
+      class="wrapper py-24 text-center grid gap-6 md:grid-cols-[40%_40%] md:justify-between md:items-center md:text-left"
+    >
+
+      <h2 class="text-4xl text-very-pale-red">
+        Haz parte de este grupo de manera sencilla y empieza a gestionar
+        proyectos
+      </h2>
+
+      <a
+        href="login.html"
+        class="button text-bright-red bg-vary-light-gray mx-auto md:mx-0 md:justify-self-end"
+      >Ingresar</a>
+
+    </div>
+  </section>
+
+</main>
+
+<!--En esta sección creamos el footer de nuestra pagina-->
+<footer class="bg-dark-blue py-24" id="comunidad">
+
+  <section
+    class="wrapper grid gap-12 justify-items-center footer-area md:footer-area-md md:grid-cols-3 md:justify-items-stretch"
+  >
+
+    <!--Formularios de actualización de noticias-->
+    <form action="" class="flex gap-4 w-full min-w-[100px] [grid-area:form]">
+
+      <input
+        type="email"
+        placeholder="Actualizaciones en tu email..."
+        class="min-w-[50px] flex-1 rounded-full px-4"
+        required
+      />
+
+      <input
+        type="submit"
+        value="Enviar"
+        class="py-3 px-8 bg-bright-red rounded-full text-white"
+      />
+    </form>
+
+    <!--Navegación del footer-->
+    <nav
+      class="grid grid-cols-[max-content_max-content] gap-y-4 justify-between text-white w-4/5 [grid-area:navigation] md:w-full"
+    >
+      <a href="#inicio">Inicio</a>
+      <a href="#acerca">Acerca de</a>
+      <a href="#sobre">Sobre nosotros</a>
+      <a href="#comunidad">Comunidad</a>
+    </nav>
+
+    <!--Redes sociales media-->
+    <div
+      class="flex flex-wrap gap-4 justify-between w-full [grid-area:social-media]"
+    >
+
+      <a href="">
+        <img src="./images/inicio/icon-facebook.svg" alt="" class="w-8" />
+
+      </a>
+      <a href="">
+        <img src="./images/inicio/icon-instagram.svg" alt="" class="w-8" />
+
+      </a>
+      <a href="">
+        <img src="./images/inicio/icon-pinterest.svg" alt="" class="w-8" />
+
+      </a>
+      <a href="">
+        <img src="./images/inicio/icon-twitter.svg" alt="" class="w-8" />
+
+      </a>
+      <a href="">
+        <img src="./images/inicio/icon-youtube.svg" alt="" class="w-8" />
+      </a>
+    </div>
+
+    <!--Logo de footer-->
+    <a href="" class="[grid-area:logo]">
+      <img src="./images/inicio/logob.png" alt="" />
+    </a>
+
+    <!--Derechos reservados-->
+    <p
+      class="text-dark-grayish-blue text-center [grid-area:copy] md:text-right"
+    >Copyright 2023. Todos los derechos resevados</p>
+
+  </section>
+</footer>

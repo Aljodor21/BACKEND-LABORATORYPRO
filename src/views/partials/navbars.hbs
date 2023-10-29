@@ -1,0 +1,239 @@
+{{#if user}}
+
+  {{#if (admin user.[7])}}
+    <!--Barra de navegación-->
+    <nav class="h-20 flex wrapper items-center justify-between">
+      <!--Icono de barra de navegación-->
+      <a href="/" class="w-1/3 max-w-[140px]">
+        <img src="/images/inicio/logo.png" alt="" class="w-full" />
+      </a>
+
+      <input type="checkbox" id="menu" class="peer hidden" />
+
+      <label
+        for="menu"
+        class="bg-open w-6 h-5 bg-cover bg-center cursor-pointer peer-checked:bg-close transition-all z-50 md:hidden"
+      >
+
+      </label>
+
+      <div
+        class="fixed inset-0 bg-gradient-to-b from-white/70 to-black/70 translate-x-full peer-checked:translate-x-0 transition-transform z-40 md:static md:translate-x-0 md:bg-none p-4"
+      >
+        <!--Lista de navegación o navbar-->
+        <ul
+          class="absolute inset-x-0 top-24 p-12 bg-white w-[90%] mx-auto rounded-md h-max text-center grid gap-6 font-bold text-dark-blue shadow-2xl md:w-max md:bg-transparent md:p-0 md:grid-flow-col md:static"
+        >
+          <li>
+            <a href="#incio">Inicio</a>
+          </li>
+
+          <li>
+            <a href="#acerca">Acerca de</a>
+          </li>
+
+          <li>
+            <a href="#sobre">Sobre nosotros</a>
+          </li>
+
+          <li>
+            <a href="#comunidad">Comunidad</a>
+          </li>
+
+          <li>
+            <a href="/admin">Administrador</a>
+          </li>
+
+          <li>
+            <a href="/perfil">Perfil</a>
+          </li>
+
+          <li>
+            <a href="/ayuda">Ayuda</a>
+          </li>
+        </ul>
+      </div>
+
+      <a
+        class="button shadow-sm shadow-bright-red/30 hidden py-3 lg:block"
+        href="/login/cerrars"
+      >Cerrar sesión</a>
+    </nav>
+  {{else}}
+    {{#if (estudiante user.[7])}}
+      <!--Barra de navegación-->
+      <nav class="h-20 flex wrapper items-center justify-between">
+        <!--Icono de barra de navegación-->
+        <a href="/" class="w-1/3 max-w-[140px]">
+          <img src="/images/inicio/logo.png" alt="" class="w-full" />
+        </a>
+
+        <input type="checkbox" id="menu" class="peer hidden" />
+
+        <label
+          for="menu"
+          class="bg-open w-6 h-5 bg-cover bg-center cursor-pointer peer-checked:bg-close transition-all z-50 md:hidden"
+        >
+
+        </label>
+
+        <div
+          class="fixed inset-0 bg-gradient-to-b from-white/70 to-black/70 translate-x-full peer-checked:translate-x-0 transition-transform z-40 md:static md:translate-x-0 md:bg-none p-4"
+        >
+          <!--Lista de navegación o navbar-->
+          <ul
+            class="absolute inset-x-0 top-24 p-12 bg-white w-[90%] mx-auto rounded-md h-max text-center grid gap-6 font-bold text-dark-blue shadow-2xl md:w-max md:bg-transparent md:p-0 md:grid-flow-col md:static"
+          >
+            <li>
+              <a href="#incio">Inicio</a>
+            </li>
+
+            <li>
+              <a href="#acerca">Acerca de</a>
+            </li>
+
+            <li>
+              <a href="#sobre">Sobre nosotros</a>
+            </li>
+
+            <li>
+              <a href="#comunidad">Comunidad</a>
+            </li>
+
+            <li>
+              <a href="/estudiante">Estudiante</a>
+            </li>
+
+            <li>
+              <a href="/perfil">Perfil</a>
+            </li>
+
+            <li>
+              <a href="/ayuda">Ayuda</a>
+            </li>
+          </ul>
+        </div>
+
+        <a
+          class="button shadow-sm shadow-bright-red/30 hidden py-3 lg:block"
+          href="/login/cerrars"
+        >Cerrar sesión</a>
+      </nav>
+    {{else}}
+        {{#if (profesor user.[7])}}
+            <!--Barra de navegación-->
+            <nav class="h-20 flex wrapper items-center justify-between">
+            <!--Icono de barra de navegación-->
+            <a href="/" class="w-1/3 max-w-[140px]">
+                <img src="./images/inicio/logo.png" alt="" class="w-full" />
+            </a>
+
+            <input type="checkbox" id="menu" class="peer hidden" />
+
+            <label
+                for="menu"
+                class="bg-open w-6 h-5 bg-cover bg-center cursor-pointer peer-checked:bg-close transition-all z-50 md:hidden"
+            >
+
+            </label>
+
+            <div
+                class="fixed inset-0 bg-gradient-to-b from-white/70 to-black/70 translate-x-full peer-checked:translate-x-0 transition-transform z-40 md:static md:translate-x-0 md:bg-none p-4"
+            >
+                <!--Lista de navegación o navbar-->
+                <ul
+                class="absolute inset-x-0 top-24 p-12 bg-white w-[90%] mx-auto rounded-md h-max text-center grid gap-6 font-bold text-dark-blue shadow-2xl md:w-max md:bg-transparent md:p-0 md:grid-flow-col md:static"
+                >
+                <li>
+                    <a href="#incio">Inicio</a>
+                </li>
+
+                <li>
+                    <a href="#acerca">Acerca de</a>
+                </li>
+
+                <li>
+                    <a href="#sobre">Sobre nosotros</a>
+                </li>
+
+                <li>
+                    <a href="#comunidad">Comunidad</a>
+                </li>
+
+                <li>
+                    <a href="/profesor">Profesor</a>
+                </li>
+
+                
+
+                <li>
+                    <a href="/perfil">Perfil</a>
+                </li>
+
+                <li>
+                    <a href="/ayuda">Ayuda</a>
+                </li>
+                </ul>
+            </div>
+
+            <a
+                class="button shadow-sm shadow-bright-red/30 hidden py-3 lg:block"
+                href="/login/cerrars"
+            >Cerrar sesión</a>
+            </nav>
+        {{/if}}
+    {{/if}}
+  {{/if}}
+
+{{else}}
+  <!--Barra de navegación-->
+  <nav class="h-20 flex wrapper items-center justify-between">
+    <!--Icono de barra de navegación-->
+    <a href="index.html" class="w-1/3 max-w-[140px]">
+      <img src="./images/inicio/logo.png" alt="" class="w-full" />
+    </a>
+
+    <input type="checkbox" id="menu" class="peer hidden" />
+
+    <label
+      for="menu"
+      class="bg-open w-6 h-5 bg-cover bg-center cursor-pointer peer-checked:bg-close transition-all z-50 md:hidden"
+    >
+
+    </label>
+
+    <div
+      class="fixed inset-0 bg-gradient-to-b from-white/70 to-black/70 translate-x-full peer-checked:translate-x-0 transition-transform z-40 md:static md:translate-x-0 md:bg-none p-4"
+    >
+      <!--Lista de navegación o navbar-->
+      <ul
+        class="absolute inset-x-0 top-24 p-12 bg-white w-[90%] mx-auto rounded-md h-max text-center grid gap-6 font-bold text-dark-blue shadow-2xl md:w-max md:bg-transparent md:p-0 md:grid-flow-col md:static"
+      >
+        <li>
+          <a href="#incio">Inicio</a>
+        </li>
+
+        <li>
+          <a href="#acerca">Acerca de</a>
+        </li>
+
+        <li>
+          <a href="#sobre">Sobre nosotros</a>
+        </li>
+
+        <li>
+          <a href="#comunidad">Comunidad</a>
+        </li>
+
+        <li>
+          <a href="/ayuda">Ayuda</a>
+        </li>
+      </ul>
+    </div>
+
+    <a
+      class="button shadow-sm shadow-bright-red/30 hidden py-3 lg:block"
+      href="/login"
+    >Ingresar</a>
+  </nav>
+{{/if}}
