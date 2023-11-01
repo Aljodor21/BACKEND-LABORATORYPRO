@@ -30,7 +30,7 @@ app.use(session({
     secret: 'laboratorypro-session',
     resave: false,
     saveUninitialized: false
-}))
+}));
 app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));

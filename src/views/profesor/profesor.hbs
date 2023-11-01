@@ -131,60 +131,40 @@
 
         <div class="rounded-lg shadow-xl">
           <table class="table-auto w-full">
-            <thead class="border-b-2 border-black">
-              <tr>
-                <th class="p-3 text-sm font-semibold tracking-wide text-left">
-                  Proyecto
-                </th>
-                <th class="p-3 text-sm font-semibold tracking-wide text-left">
-                  Código
-                </th>
-              </tr>
-            </thead>
-            <tbody class="gap-6">
-              <tr>
-                <td>Malcolm Lockyer</td>
-                <td>1961</td>
-              </tr>
-              <tr>
-                <td>The Eagles</td>
-                <td>1972</td>
-              </tr>
-              <tr>
-                <td>Shining Star</td>
-                <td>1975</td>
-              </tr>
-              <tr>
-                <td>Shining Star</td>
-                <td>1975</td>
-              </tr>
-              <tr>
-                <td>Shining Star</td>
-                <td>1975</td>
-              </tr>
-              <tr>
-                <td>Shining Star</td>
-                <td>1975</td>
-              </tr>
-              <tr>
-                <td>Shining Star</td>
-                <td>1975</td>
-              </tr>
-              <tr>
-                <td>Shining Star</td>
-                <td>1975</td>
-              </tr>
-            </tbody>
+            {{#if obj2}}
+              <thead class="border-b-2 border-black">
+                <tr>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-left">
+                    Proyecto
+                  </th>
+                  <th class="p-3 text-sm font-semibold tracking-wide text-left">
+                    Código
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="gap-6">
+                {{#each obj2}}
+                  <tr>
+                    <td>{{nombre_proyecto}}</td>
+                    <td>{{id_proyecto}}</td>
+                  </tr>
+
+                {{/each}}
+              </tbody>
+            {{else}}
+              <h3 class="text-2xl font-bold text-center p-6">No existen
+                proyectos actualmente</h3>
+            {{/if}}
           </table>
         </div>
 
         <div
           class="container w-full bg-bright-red mt-6 rounded-xl shadow-2xl shadow-black flex justify-center"
         >
-          <form action="" method="POST" class="flex flex-col p-6 gap-4">
+          <form action="/profesor" method="POST" class="flex flex-col p-6 gap-4">
             <input
               type="number"
-              name=""
+              name="codigo_proyecto"
               id=""
               placeholder="Código de proyecto *"
               class="rounded-md text-center p-2 mb-4 text-black"
@@ -193,7 +173,7 @@
 
             <input
               type="number"
-              name=""
+              name="integrante1"
               id=""
               placeholder="Código integrante 1 *"
               class="rounded-md text-center p-2 mb-4 text-black"
@@ -202,7 +182,7 @@
 
             <input
               type="number"
-              name=""
+              name="integrante2"
               id=""
               placeholder="Código integrante 2 *"
               class="rounded-md text-center p-2 mb-4 text-black"
@@ -211,7 +191,7 @@
 
             <input
               type="number"
-              name=""
+              name="integrante3"
               id=""
               placeholder="Código integrante 3"
               class="rounded-md text-center p-2 mb-4 text-black"
@@ -221,7 +201,7 @@
               type="submit"
               class="w-full text-center py-2 rounded bg-dark-blue text-white hover:bg-dark-grayish-blue"
             >
-              Crear
+              Enlazar
             </button>
           </form>
         </div>

@@ -88,19 +88,20 @@
       </li>
     </ul>
 
-    <div class="table-data">
+    <div class="table-data ">
 
-      <div class="order">
+      <div class="order ">
         <div class="head">
           <h3>Proyectos Registrados</h3>
         </div>
 
-        <table>
+        <table >
           {{#if obj}}
             <thead>
               <tr>
                 <th>Proyecto</th>
                 <th>Fecha creación</th>
+                <th>Acciones</th>
               </tr>
             </thead>
 
@@ -111,11 +112,19 @@
 
                     <a
                       href="/profesor/viewPP/{{id_proyecto}}"
-                      class="hover:bg-bright-red text-xs"
+                      class="hover:bg-bright-red text-xm"
                     >{{nombre}}</a>
                   </td>
                   <td>
                     {{timeago fecha_creacion}}
+                  </td>
+                  <td class="p-3 font-bold flex gap-5">
+                    <a href="/profesor/editProyecto/{{id_proyecto}}" title="Editar"><i
+                        class="hover:bg-orange-400 bx bx-edit-alt"
+                      ></i></a>
+                    <a href="/profesor/borrarProyecto/{{id_proyecto}}" title="Eliminar"><i
+                        class="hover:bg-red-400 bx bx-x"
+                      ></i></a>
                   </td>
                 </tr>
               {{/each}}
