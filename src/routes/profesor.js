@@ -28,11 +28,30 @@ router.get("/",async (req,res)=>{
             })
         }));
 
+        //Con estas 2 consultas lo que hago es generar una consulta dinamicamente
         const result2 = await conn.execute('SELECT codigo_proyecto FROM proyectos_usuarios GROUP BY codigo_proyecto HAVING COUNT(codigo_proyecto) >=2');
 
-        console.log(result2.rows);
+        let result3;
+        let sql = 'SELECT * FROM PROYECTOS WHERE ID_PROYECTO';
+        if(result2.rows.length > 0)
+        {
+            
+            for(let i = 0;i < result2.rows.length; i++)
+            {
+                if(i == result2.rows.length-1){
+                    sql += ' <> ' + result2.rows[i][0] + ' ORDER BY ID_PROYECTO';
+                }else{
+                    sql += ' <> ' + result2.rows[i][0] + ' AND ID_PROYECTO';
+                }
+            }
+            
+            console.log(sql);
+            result3 = await conn.execute(sql);
+        }else{
+            result3 = await conn.execute('SELECT * FROM PROYECTOS ORDER BY ID_PROYECTO');
+        }
+        
 
-        const result3 = await conn.execute('SELECT * FROM PROYECTOS WHERE ORDER BY ID_PROYECTO');
         const obj2 = [];
 
         data = result3.rows.map((row)=>{
