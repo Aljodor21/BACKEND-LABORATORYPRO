@@ -8,7 +8,7 @@ ALTER DATABASE OPEN;
 DROP TABLESPACE ts_proyectosppi INCLUDING CONTENTS and DATAFILES;
     
 CREATE TABLESPACE ts_proyectosppi LOGGING
-DATAFILE 'C:\CBDI-2023\BASES DE DATOS\PPI\DF_proyectosppi01.dbf' size 2M
+DATAFILE 'C:\CBDI-2023\BASES DE DATOS\PPI\DF_proyectosppi01.dbf' size 1M
 extent management local segment space management auto; 
  
 alter session set "_ORACLE_SCRIPT"=true; 

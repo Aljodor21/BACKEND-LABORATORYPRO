@@ -63,7 +63,7 @@ router.get("/",async (req,res)=>{
             })
         })
 
-
+        await conn.release();
         //Consulta para llamar a los proyectos que no tengan personas asociadas
         res.render('profesor/profesor',{layout:'main2',obj:obj,obj2:obj2})
     } catch (error) {
@@ -176,6 +176,8 @@ router.get("/proyectos",async (req,res)=>{
                 fecha_creacion: row[3],
             });
         });
+
+        await conn.release();
         res.render('profesor/proyectos',{layout:'main2',obj})
 
     } catch (error) {
@@ -225,6 +227,7 @@ router.get('/editProyecto/:id',async (req,res)=>{
             });
         });
 
+        await conn.release();
         res.render('profesor/editProyecto',{layout:'main2',obj:obj[0]})
     } catch (error) {
         console.log('Error al consultar la edición de un proyecto ',error);
@@ -273,7 +276,9 @@ router.get('/borrarProyecto/:id',async (req,res)=>{
         }else{
             await conn.release();
         }
-    } catch (error) {
+    } catch (error) 
+    {   
+        req.flash('successf','No se puede eliminar el proyecto porque tiene usuarios asociados a el')
         console.log('Error al borrar un proyecto ',error)
     }
 });
@@ -308,6 +313,7 @@ router.get("/viewPP/:id",async (req,res)=>{
             })
         }));
 
+        await conn.release();
         res.render('profesor/viewPP',{layout:'main2',obj:obj,obj2})
     } catch (error) {
         console.log('Error al consultar proyecto '+error)

@@ -32,7 +32,7 @@ CREATE TABLE PROYECTOS
     fecha_creacion DATE
 )TABLESPACE ts_proyectosppi;
 
---Tablas adicional para la logica de nuestro proyecto o tablas debiles
+--Creamos nuestras tablas debiles
 CREATE TABLE USUARIOS
 (
     id_usuario INTEGER,
@@ -48,14 +48,14 @@ CREATE TABLE USUARIOS
 
 
 
---Tabla de referencia para nuestros proyectos con nuestros usuarios
+--Tabla de referencia para proyectos y usuarios
 CREATE TABLE PROYECTOS_USUARIOS
 (
     codigo_proyecto INTEGER,
     codigo_usuario INTEGER
 )TABLESPACE ts_proyectosppi;
 
---Tabla de referencia para nuestros usuarios y proyectos los cuales van a llevar nuestros avances
+--Tabla de avances para usuarios y proyectos 
 CREATE TABLE AVANCES(
     codigo_proyecto INTEGER,
     codigo_usuario INTEGER,

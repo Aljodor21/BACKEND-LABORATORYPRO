@@ -34,7 +34,7 @@ router.get("/",async (req,res)=>{
         res.render("admin/solicitudes",{layout: 'main2',obj});
 
     }catch(e){
-        console.log('Error al realizar la consulta');
+        console.log('Error al realizar la consulta: ',e);
     }
 
     
