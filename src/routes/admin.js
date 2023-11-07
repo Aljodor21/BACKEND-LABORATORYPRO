@@ -11,10 +11,11 @@ router.get("/",async (req,res)=>{
         const pool =await db.iniciar();
         const conn = await pool.getConnection();
 
-        let result = await conn.execute(`SELECT * FROM USUARIOS WHERE CODIGO_ESTADO= :cod`,[1]);
+        let result = await conn.execute(`SELECT id_usuario,nombre,papellido,correo,fecha_registro,tipo_usuario FROM USUARIOS INNER JOIN TIPOS ON ID_TIPO=CODIGO_TIPO WHERE CODIGO_ESTADO= :cod`,[1]);
 
         await conn.release();
 
+        console.log(result.rows)
         const obj = [];
 
         const data = result.rows.map(row=>{
@@ -22,12 +23,9 @@ router.get("/",async (req,res)=>{
                 id_usuario:row[0],
                 nombre:row[1],
                 papellido:row[2],
-                sapellido:row[3],
-                correo:row[4],
-                contrasena:row[5],
-                fecha_registro:row[6],
-                codigo_tipo:row[7],
-                codigo_estado:row[8]
+                correo:row[3],
+                fecha_registro:row[4],
+                codigo_tipo:row[5]
             });
         })
 
@@ -91,9 +89,10 @@ router.get("/registrados",async (req,res)=>{
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
 
-        const result = await conn.execute('SELECT * FROM USUARIOS WHERE CODIGO_ESTADO=:ID1 OR CODIGO_ESTADO=:ID2 ORDER BY ID_USUARIO',[2,3]);
+        const result = await conn.execute('SELECT id_usuario,nombre,papellido,correo,fecha_registro,tipo_usuario,estado FROM USUARIOS INNER JOIN TIPOS ON ID_TIPO=CODIGO_TIPO INNER JOIN ESTADOS ON ID_ESTADO=CODIGO_ESTADO WHERE CODIGO_ESTADO=:ID1 OR CODIGO_ESTADO=:ID2 ORDER BY ID_USUARIO',[2,3]);
 
         await conn.release();
+        console.log(result.row)
         const obj = [];
 
         const data = result.rows.map(row=>{
@@ -101,12 +100,10 @@ router.get("/registrados",async (req,res)=>{
                 id_usuario:row[0],
                 nombre:row[1],
                 papellido:row[2],
-                sapellido:row[3],
-                correo:row[4],
-                contrasena:row[5],
-                fecha_registro:row[6],
-                codigo_tipo:row[7],
-                codigo_estado:row[8]
+                correo:row[3],
+                fecha_registro:row[4],
+                codigo_tipo:row[5],
+                codigo_estado:row[6]
             });
         });
 

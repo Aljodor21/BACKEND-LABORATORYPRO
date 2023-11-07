@@ -9,13 +9,13 @@ INSERT INTO estados(id_estado,estado) VALUES(2,'Activo');
 INSERT INTO estados(id_estado,estado) VALUES(3,'Rechazado');
 
 --De la siguiente manera seleccionamos un registro
-SELECT * FROM ESTADOS WHERE ID_ESTADO=1;
+--SELECT * FROM ESTADOS WHERE ID_ESTADO=1;
 
 --De la siguiente manera actualizamos un registro
-UPDATE ESTADOS SET ESTADO = 'ACTUALIZADO' WHERE ID_ESTADO=1;
+--UPDATE ESTADOS SET ESTADO = 'ACTUALIZADO' WHERE ID_ESTADO=1;
 
 --De la siguiente manera eliminamos un registro
-DELETE FROM ESTADOS WHERE ID_ESTADO=1;
+--DELETE FROM ESTADOS WHERE ID_ESTADO=1;
 
 COMMIT;
 
