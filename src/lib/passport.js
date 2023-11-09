@@ -34,11 +34,14 @@ passport.use('local.ingreso', new Strategy({
             {
                 const validacion = await helpers.descifrar(password,user.contrasena);
 
-                if(validacion){
+                if(validacion)
+                {
                     done(null,user,req.flash('success','Bienvenid@ '+user.nombre))
-                }else{
+                }else
+                {
                     done(null,false,req.flash('successf','Contraseña incorrecta'))
                 }
+                
             }else if(user.codigo_estado === 1)
             {
                 done(null,false,req.flash('successf','Usuario pendiente de admisión'));

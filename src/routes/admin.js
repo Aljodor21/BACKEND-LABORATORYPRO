@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const email = require('../lib/email');
 
 //Instancia de nuestra base de datos
 const db = require('../database');
@@ -15,7 +16,6 @@ router.get("/",async (req,res)=>{
 
         await conn.release();
 
-        console.log(result.rows)
         const obj = [];
 
         const data = result.rows.map(row=>{
@@ -47,10 +47,18 @@ router.get('/rechazado/:id', async(req,res)=>{
 
         const result = await conn.execute('UPDATE USUARIOS SET CODIGO_ESTADO=:ESTADO WHERE ID_USUARIO=:ID',[3,id_usuario]);
 
-        console.log(result.rowsAffected)
-        if(result.rowsAffected && result.rowsAffected === 1){
-            conn.commit();
-            conn.release();
+        const ema = await conn.execute('SELECT * FROM USUARIOS WHERE ID_USUARIO=:ID',[id_usuario]);
+
+        if(result.rowsAffected && result.rowsAffected === 1)
+        {
+            email.mailOptions = {
+                to: ema.rows[0][4],
+                subject: "LaboratoryPro",
+                text: "Tu solicitud en nuestra página ha sido rechazada, debes comunicarte con el administrador del sitio"
+            }
+            await email.transporter.sendMail(email.mailOptions);
+            await conn.commit();
+            await conn.release();
             req.flash('success','Usuario rechazado con exito');
             res.redirect('/admin')
 
@@ -70,9 +78,18 @@ router.get('/aceptado/:id', async(req,res)=>{
 
         const result = await conn.execute('UPDATE USUARIOS SET CODIGO_ESTADO=:ESTADO WHERE ID_USUARIO=:ID',[2,id_usuario]);
 
-        if(result.rowsAffected && result.rowsAffected === 1){
-            conn.commit();
-            conn.release();
+        const ema = await conn.execute('SELECT * FROM USUARIOS WHERE ID_USUARIO=:ID',[id_usuario]);
+
+        if(result.rowsAffected && result.rowsAffected === 1)
+        {
+            email.mailOptions = {
+                to: ema.rows[0][4],
+                subject: "LaboratoryPro",
+                text: "Tu cuenta ha sido activada, ahora puedes hacer uso de todas nuestras funciones"
+            }
+            await email.transporter.sendMail(email.mailOptions);
+            await conn.commit();
+            await conn.release();
             req.flash('success','Usuario aceptado con exito');
             res.redirect('/admin')
         }
@@ -92,7 +109,6 @@ router.get("/registrados",async (req,res)=>{
         const result = await conn.execute('SELECT id_usuario,nombre,papellido,correo,fecha_registro,tipo_usuario,estado FROM USUARIOS INNER JOIN TIPOS ON ID_TIPO=CODIGO_TIPO INNER JOIN ESTADOS ON ID_ESTADO=CODIGO_ESTADO WHERE CODIGO_ESTADO=:ID1 OR CODIGO_ESTADO=:ID2 ORDER BY ID_USUARIO',[2,3]);
 
         await conn.release();
-        console.log(result.row)
         const obj = [];
 
         const data = result.rows.map(row=>{
@@ -107,7 +123,6 @@ router.get("/registrados",async (req,res)=>{
             });
         });
 
-        console.log(obj)
         res.render("admin/registrados",{layout:'main2',obj});
     } catch (e) {
         console.log('Error al realizar la consulta',e)

@@ -1,5 +1,6 @@
 const express = require("express");
-const router = express.Router()
+const router = express.Router();
+const email = require('../lib/email');
 
 //Creamos una instancia de la base de datos, para realizar las diferentes consultas y tambien una instancia de nuestra authenticacion, tambien un modulo para encriptar contraseña
 const db = require('../database')
@@ -56,13 +57,18 @@ router.post('/registro', async (req, res) => {
         }
 
         newUser.contrasena = await bcrypt.cifrar(newUser.contrasena);
-        console.log(newUser);
 
         const result = await conn.execute('INSERT INTO USUARIOS VALUES(:id,:nombre,:papellido,:sapellido,:correo,:contrasena,SYSDATE,:ct,:ce)', [newUser.id_usuario, newUser.nombre, newUser.papellido, newUser.sapellido, newUser.correo, newUser.contrasena, newUser.codigo_tipo, newUser.codigo_estado]);
 
 
-        if (result.rowsAffected && result.rowsAffected >= 1) {
-
+        if (result.rowsAffected && result.rowsAffected >= 1) 
+        {
+            email.mailOptions = {
+                to: correo,
+                subject: "LaboratoryPro",
+                text: "Acabas de crear una cuenta, debes esperar la activación por parte del administrador de la aplicación"
+            }
+            await email.transporter.sendMail(email.mailOptions);
             await conn.commit();
             await conn.release();
             req.flash('success','Usuario creado, debes esperar aprobación del administrador');

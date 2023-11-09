@@ -41,7 +41,7 @@ CREATE TABLE USUARIOS
     sapellido VARCHAR2(50),
     correo VARCHAR2(80),
     contrasena VARCHAR2(70),
-    fecha_registro DATE  ,
+    fecha_registro DATE,
     codigo_tipo NUMBER(1),
     codigo_estado NUMBER(1)
 )TABLESPACE ts_proyectosppi;
@@ -56,7 +56,8 @@ CREATE TABLE PROYECTOS_USUARIOS
 )TABLESPACE ts_proyectosppi;
 
 --Tabla de avances para usuarios y proyectos 
-CREATE TABLE AVANCES(
+CREATE TABLE AVANCES
+(
     codigo_proyecto INTEGER,
     codigo_usuario INTEGER,
     descripcion_avance VARCHAR2(4000),
