@@ -63,7 +63,7 @@ CREATE TABLE AVANCES
     codigo_proyecto INTEGER,
     codigo_usuario INTEGER,
     retroalimentacion VARCHAR2(300),
-    codigo_coordinador INTEGER
+    codigo_profesor INTEGER
 )TABLESPACE ts_proyectosppi;
 
 PURGE TABLESPACE ts_proyectosppi;
