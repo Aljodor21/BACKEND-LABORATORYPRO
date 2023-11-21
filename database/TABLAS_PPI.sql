@@ -1,6 +1,6 @@
 --Eliminamos primero las tablas debiles
-DROP TABLE PROYECTOS_USUARIOS;
 DROP TABLE AVANCES;
+DROP TABLE PROYECTOS_USUARIOS;
 DROP TABLE USUARIOS;
 
 
@@ -58,9 +58,10 @@ CREATE TABLE PROYECTOS_USUARIOS
 --Tabla de avances para usuarios y proyectos 
 CREATE TABLE AVANCES
 (
+    id_avance INTEGER,
+    descripcion_avance VARCHAR2(4000),
     codigo_proyecto INTEGER,
     codigo_usuario INTEGER,
-    descripcion_avance VARCHAR2(4000),
     retroalimentacion VARCHAR2(300),
     codigo_coordinador INTEGER
 )TABLESPACE ts_proyectosppi;

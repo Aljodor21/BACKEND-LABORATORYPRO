@@ -1,0 +1,201 @@
+<!-- SIDEBAR -->
+<section id="sidebar">
+  <a href="../index.html" class="brand py-3">
+    <i class="bx bx-rocket"></i>
+    <span class="text">Laboratory Pro</span>
+  </a>
+
+  <ul class="side-menu top">
+    <li>
+      <a href="./profesorP.html" id="b3">
+        <i class="bx bxs-group"></i>
+        <span class="text">Proyectos</span>
+      </a>
+    </li>
+
+    <li class="active">
+      <a href="./profesor.html" id="b1">
+        <i class="bx bx-user-circle"></i>
+        <span class="text">Integrantes</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="side-menu">
+    <li>
+      <a href="#" class="logout">
+        <i class="bx bxs-log-out-circle"></i>
+        <span class="text">Cerrar sesión</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<!-- SIDEBAR -->
+
+<!-- CONTENT -->
+<section id="content">
+  <!-- NAVBAR -->
+  <nav class="flex justify-between">
+    <div>
+      <i class="bx bx-menu"></i>
+      <a href="#" class="nav-link">Docente</a>
+    </div>
+
+    <!--Necesario para el funcionamiento de la app, pero no se ve, por eso utiliza la clase hidden-->
+    <form action="#" class="hidden">
+      <div class="form-input">
+        <input type="search" placeholder="Search..." />
+        <button type="submit" class="search-btn">
+          <i class="bx bx-search"></i>
+        </button>
+      </div>
+    </form>
+
+    <div class="flex items-center gap-6">
+      <input type="checkbox" id="switch-mode" hidden />
+      <label for="switch-mode" class="switch-mode"></label>
+
+      <a href="profesor.html" class="profile">
+        <img src="/src/html/images/admin/people.png" />
+      </a>
+    </div>
+  </nav>
+  <!-- NAVBAR -->
+
+  <!-- MAIN 1-->
+  <main id="section1">
+    <div class="head-title">
+      <div class="left">
+        <h1>Integrantes</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Docente</a>
+          </li>
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <p class="text-bright-red">Asignar integrantes</p>
+            <!--<a class="active" href="#"></a>-->
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="box-info">
+      <li class="flex justify-between">
+        <span class="text">
+          <h3>Nombre del proyecto</h3>
+          <p>Project name</p>
+        </span>
+        <div class="flex gap-2">
+          <i class="bx bxs-group"></i>
+          <span class="text">
+            <h3>30</h3>
+            <p>Integrantes asociados</p>
+          </span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="table-data">
+      <!--Tabla de estudiantes asociados-->
+      <div class="order">
+        <div class="head">
+          <h3>Estudiantes asociados</h3>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Estudiante</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <img src="/src/html/images/admin/people.png" />
+                <p>John Doe</p>
+              </td>
+              <td>
+                <a title="Eliminar" href="" class="hover:bg-red-400">
+                  <i class="bx bx-x"></i>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="/src/html/images/admin/people.png" />
+                <p>John Doe</p>
+              </td>
+              <td>
+                <a href="" class="hover:bg-red-400">
+                  <i class="bx bx-x"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!--Tabla para asociar estudiantes-->
+      <div class="order">
+        <div class="head">
+          <h3>Estudiantes disponibles</h3>
+        </div>
+        <form action="">
+          <table>
+            <thead>
+              <tr>
+                <th>Estudiante</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <img src="/src/html/images/admin/people.png" />
+                  <p>John Doe</p>
+                </td>
+                <td>
+                  <label for="opcion1">
+                    <input
+                      type="checkbox"
+                      id="opcion1"
+                      name="opcion1"
+                      value="opcion1"
+                    />
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="/src/html/images/admin/people.png" />
+                  <p>John Doe</p>
+                </td>
+                <td>
+                  <label for="opcion2">
+                    <input
+                      type="checkbox"
+                      id="opcion2"
+                      name="opcion2"
+                      value="opcion2"
+                    />
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="flex justify-center items-center mt-4">
+            <button
+              class="py-2 rounded w-[50%] text-center bg-bright-red text-white hover:bg-dark-blue hover:text-bright-red"
+              type="submit"
+            >
+              Agregar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->

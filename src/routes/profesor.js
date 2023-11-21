@@ -4,159 +4,6 @@ const router = express.Router();
 //Instancia de la BD para realizar las diferentes consultas
 const db=require('../database');
 
-//Ruta para enlazar estudiantes con proyectos en nuestra tabla pivote
-router.get("/",async (req,res)=>{
-    try {
-        const pool = await db.iniciar();
-        const conn = await pool.getConnection();
-
-        //Consulta para llamar a los integrantes estudiantes activos
-        const result = await conn.execute('SELECT * FROM USUARIOS WHERE CODIGO_TIPO=2 AND CODIGO_ESTADO=2 ORDER BY ID_USUARIO');
-
-        const obj = [];
-
-        let data = result.rows.map((row=>{
-            obj.push({
-                id_usuario: row[0],
-                nombre_usuario: row[1],
-                papellido: row[2],
-                sapellido: row[3],
-                correo_usuario: row[4],
-                fecha_registro: row[6],
-                codigo_tipo: row[7],
-                codigo_estado: row[8]
-            })
-        }));
-
-        //Con estas 2 consultas lo que hago es generar una consulta dinamicamente
-        const result2 = await conn.execute('SELECT codigo_proyecto FROM proyectos_usuarios GROUP BY codigo_proyecto HAVING COUNT(codigo_proyecto) >=2');
-
-        let result3;
-        let sql = 'SELECT * FROM PROYECTOS WHERE ID_PROYECTO';
-        if(result2.rows.length > 0)
-        {
-            
-            for(let i = 0;i < result2.rows.length; i++)
-            {
-                if(i == result2.rows.length-1){
-                    sql += ' <> ' + result2.rows[i][0] + ' ORDER BY ID_PROYECTO';
-                }else{
-                    sql += ' <> ' + result2.rows[i][0] + ' AND ID_PROYECTO';
-                }
-            }
-            
-            console.log(sql);
-            result3 = await conn.execute(sql);
-        }else{
-            result3 = await conn.execute('SELECT * FROM PROYECTOS ORDER BY ID_PROYECTO');
-        }
-        
-
-        const obj2 = [];
-
-        data = result3.rows.map((row)=>{
-            obj2.push({
-                id_proyecto:row[0],
-                nombre_proyecto: row[1],
-                introduccion:row[2],
-                fecha_creacion:row[3]
-            })
-        })
-
-        await conn.release();
-        //Consulta para llamar a los proyectos que no tengan personas asociadas
-        res.render('profesor/profesor',{layout:'main2',obj:obj,obj2:obj2})
-    } catch (error) {
-        console.log('Error al cargar los integrantes registrados ',error)
-    }
-    
-    
-});
-
-router.post("/",async (req,res)=>{
-    try {
-        const {codigo_proyecto,integrante1,integrante2,integrante3} = req.body;
-        
-        const pool = await db.iniciar();
-        const conn = await pool.getConnection();
-
-        let consult;
-        
-        let one = parseInt(integrante1);
-        let two = parseInt(integrante2);
-        let three = parseInt(integrante3);
-
-        if(one == two || one == three || two == three)
-        {
-            req.flash('successf','No puedes repetir el mismo código de un estudiante 2 veces');
-            res.redirect('/profesor');
-        };
-
-        //Empezamos a validar para que no nos ingresen datos por ingresar, valido que el proyecto si exista
-        const r = await conn.execute('SELECT * FROM PROYECTOS WHERE ID_PROYECTO=:ID',[codigo_proyecto]);
-
-        if(r.rows.length > 0){
-
-            //Valido que el integrante 1 exista
-            const r1 = await conn.execute('SELECT * FROM USUARIOS WHERE ID_USUARIO=:ID',[integrante1]);
-
-            if(r1.rows.length > 0)
-            {
-
-                //Valido que el integrante 2 exista
-                const r2 = await conn.execute('SELECT * FROM USUARIOS WHERE ID_USUARIO=:ID',[integrante2]);
-
-                if(r2.rows.length > 0)
-                {
-                    //Valido que el integrante 3 exista
-                    if(integrante3 == '')
-                    {
-                        consult = await conn.execute("INSERT INTO PROYECTOS_USUARIOS VALUES("+codigo_proyecto+",:id1)",[integrante1]);
-                        consult = await conn.execute("INSERT INTO PROYECTOS_USUARIOS VALUES("+codigo_proyecto+",:id2)",[integrante2]);
-                    }else
-                    {
-                        const r3 = await conn.execute('SELECT * FROM USUARIOS WHERE ID_USUARIO=:ID',[integrante3]);
-
-                        if(r3.rows.length > 0){
-                            consult = await conn.execute("INSERT INTO PROYECTOS_USUARIOS VALUES("+codigo_proyecto+",:id1)",[integrante1]);
-                            consult = await conn.execute("INSERT INTO PROYECTOS_USUARIOS VALUES("+codigo_proyecto+",:id2)",[integrante2]);
-                            consult = await conn.execute("INSERT INTO PROYECTOS_USUARIOS VALUES("+codigo_proyecto+",:id3)",[integrante3]);
-                        }
-                        else{
-                            req.flash('successf','El codigo del integrante 3 es invalido');
-                            res.redirect('/profesor')
-                        }
-                    }
-
-                }else{
-                    req.flash('successf','El codigo del integrante 2 es invalido');
-                    res.redirect('/profesor')
-                }
-
-            }else{
-                req.flash('successf','El codigo del integrante 1 es invalido');
-                res.redirect('/profesor')
-            }
-
-        }else{
-            req.flash('successf','Debes ingresar el código de un proyecto valido');
-            res.redirect('/profesor')
-        }
-
-        if(consult.rowsAffected && consult.rowsAffected >= 1){
-            await conn.commit();
-            await conn.release();
-            req.flash('success','Estudiantes enlazados con exito');
-            res.redirect('/profesor');
-        }else{
-            await conn.release();
-        }
-        
-
-    } catch (error) {
-        console.log('Error al enlazar proyectos con usuarios ',error)
-    }
-});
 
 //Rutas para visualizar todos los proyectos y para hacer El crud con los mismos
 router.get("/proyectos",async (req,res)=>{
@@ -320,4 +167,47 @@ router.get("/viewPP/:id",async (req,res)=>{
     }
     
 })
+
+
+//Ruta para enlazar estudiantes con proyectos en nuestra tabla pivote proyectos_usuarios
+router.get('/',async (req,res)=>
+{
+    try 
+    {
+        const pool = await db.iniciar();
+        const conn = await pool.getConnection();
+
+        const result = await conn.execute('SELECT * FROM PROYECTOS');
+
+        const obj = [];
+
+        const data = result.rows.map(row=>
+        {
+            obj.push({
+                id_proyecto: row[0],
+                nombre_proyecto: row[1],
+                fecha_creacion:row[3]
+            })
+        });
+
+        res.render('profesor/profesor',{layout:'main2',obj:obj})
+    } catch (error) 
+    {
+        console.log('Error al consultar proyectos registrados ',error);
+    }
+    
+});
+
+
+router.get('/asignar/:id',async (req,res)=>
+{
+    try 
+    {
+        
+    } catch (error) 
+    {
+        
+    }
+    res.render('profesor/asignar',{layout:'main2'})
+});
 module.exports = router
