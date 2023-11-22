@@ -7,14 +7,14 @@
 
   <ul class="side-menu top">
     <li>
-      <a href="./profesorP.html" id="b3">
+      <a href="/profesor/proyectos" id="b3">
         <i class="bx bxs-group"></i>
         <span class="text">Proyectos</span>
       </a>
     </li>
 
     <li class="active">
-      <a href="./profesor.html" id="b1">
+      <a href="/profesor" id="b1">
         <i class="bx bx-user-circle"></i>
         <span class="text">Integrantes</span>
       </a>
@@ -83,12 +83,12 @@
       <li class="flex justify-between">
         <span class="text">
           <h3>Nombre del proyecto</h3>
-          <p>Project name</p>
+          <p>{{proyecto}}</p>
         </span>
         <div class="flex gap-2">
           <i class="bx bxs-group"></i>
           <span class="text">
-            <h3>30</h3>
+            <h3>{{students.rows.length}}</h3>
             <p>Integrantes asociados</p>
           </span>
         </div>
@@ -102,36 +102,32 @@
           <h3>Estudiantes asociados</h3>
         </div>
         <table>
-          <thead>
-            <tr>
-              <th>Estudiante</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <img src="/src/html/images/admin/people.png" />
-                <p>John Doe</p>
-              </td>
-              <td>
-                <a title="Eliminar" href="" class="hover:bg-red-400">
-                  <i class="bx bx-x"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <img src="/src/html/images/admin/people.png" />
-                <p>John Doe</p>
-              </td>
-              <td>
-                <a href="" class="hover:bg-red-400">
-                  <i class="bx bx-x"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
+          {{#if nombres}}
+            <thead>
+              <tr>
+                <th>Estudiante</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each nombres}}
+                <tr>
+                  <td>
+                    <img src="/images/admin/people.png" />
+                    <p>{{nombre}} {{papellido}}</p>
+                  </td>
+                  <td>
+                    <a title="Eliminar" href="" class="hover:bg-red-400">
+                      <i class="bx bx-x"></i>
+                    </a>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          {{else}}
+            <h3 class="text-2xl font-bold text-center p-6">No existen usuarios
+              asociados</h3>
+          {{/if}}
         </table>
       </div>
 
@@ -142,46 +138,35 @@
         </div>
         <form action="">
           <table>
-            <thead>
-              <tr>
-                <th>Estudiante</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <img src="/src/html/images/admin/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>
-                  <label for="opcion1">
-                    <input
-                      type="checkbox"
-                      id="opcion1"
-                      name="opcion1"
-                      value="opcion1"
-                    />
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="/src/html/images/admin/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>
-                  <label for="opcion2">
-                    <input
-                      type="checkbox"
-                      id="opcion2"
-                      name="opcion2"
-                      value="opcion2"
-                    />
-                  </label>
-                </td>
-              </tr>
-            </tbody>
+            {{#if nombres2}}
+              <thead>
+                <tr>
+                  <th>Estudiante</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each nombres2}}
+                  <tr>
+                    <td>
+                      <img src="/images/admin/people.png" />
+                      <p>{{nombre}} {{papellido}}</p>
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        id="opcion1"
+                        name="opcion1"
+                        value="opcion1"
+                      />
+                    </td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            {{else}}
+              <h3 class="text-2xl font-bold text-center p-6">No existen usuarios
+                disponibles</h3>
+            {{/if}}
           </table>
 
           <div class="flex justify-center items-center mt-4">

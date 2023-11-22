@@ -177,7 +177,7 @@ router.get('/',async (req,res)=>
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
 
-        const result = await conn.execute('SELECT * FROM PROYECTOS');
+        const result = await conn.execute('SELECT * FROM PROYECTOS ORDER BY ID_PROYECTO');
 
         const obj = [];
 
@@ -203,11 +203,78 @@ router.get('/asignar/:id',async (req,res)=>
 {
     try 
     {
-        
+        const {id} = req.params;
+        const pool = await db.iniciar();
+        const conn = await pool.getConnection();
+
+        //Consultas para saber el nombre del proyecto
+        const project = await conn.execute('SELECT nombre_proyecto FROM PROYECTOS WHERE ID_PROYECTO=:ID',[id]);
+
+        const proyecto = project.rows[0][0];
+
+        //Consultas para saber si hay estudiantes asociados al proyecto
+        const students = await conn.execute('SELECT * FROM PROYECTOS_USUARIOS WHERE CODIGO_PROYECTO=:COD',[id]);
+
+        let sql = 'SELECT ID_USUARIO,NOMBRE, PAPELLIDO FROM USUARIOS WHERE ID_USUARIO'
+
+        let students2;
+
+        if(students.rows.length > 0)
+        {
+            for(let i = 0;i<students.rows.length;i++)
+            {
+                if(i == students.rows.length-1){
+                    sql += ' = ' + students.rows[i][1] + ' ORDER BY ID_USUARIO';
+                }else{
+                    sql += ' = ' + students.rows[i][1] + ' OR ID_USUARIO';
+                }
+            }
+            students2 = await conn.execute(sql);
+        }
+        const nombres = [];
+        let data = students2.rows.map(row => {
+            nombres.push({
+                id_usuario: row[0],
+                nombre: row[1],
+                papellido: row[2]
+            })
+        });
+
+        //Consulta de estudiantes diferentes al proyecto
+        let sql2 = 'SELECT ID_USUARIO,NOMBRE, PAPELLIDO FROM USUARIOS WHERE CODIGO_TIPO=2 AND CODIGO_ESTADO=2 AND ID_USUARIO'
+
+        let students3;
+
+        if(students.rows.length > 0)
+        {
+            for(let i = 0;i<students.rows.length;i++)
+            {
+                if(i == students.rows.length-1){
+                    sql2 += ' <> ' + students.rows[i][1] + ' ORDER BY ID_USUARIO';
+                }else{
+                    sql2 += ' <> ' + students.rows[i][1] + ' OR ID_USUARIO';
+                }
+            }
+            students3 = await conn.execute(sql2);
+        }
+
+        const nombres2 = [];
+        let data2 = students3.rows.map(row => {
+            nombres2.push({
+                id_usuario: row[0],
+                nombre: row[1],
+                papellido: row[2]
+            })
+        });
+
+        console.log(nombres2)
+        //Renderizo mi vista 
+        res.render('profesor/asignar',{layout:'main2',proyecto,students,nombres:nombres,nombres2:nombres2});
+
     } catch (error) 
     {
-        
+        console.log('Error al cargar usuarios asignados de proyectos ', error)
     }
-    res.render('profesor/asignar',{layout:'main2'})
+    
 });
 module.exports = router
