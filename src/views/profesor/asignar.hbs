@@ -137,8 +137,8 @@
           <h3>Estudiantes disponibles</h3>
         </div>
         <form action="">
-          <table>
-            {{#if nombres2}}
+          {{#if nombres2}}
+            <table>
               <thead>
                 <tr>
                   <th>Estudiante</th>
@@ -163,20 +163,21 @@
                   </tr>
                 {{/each}}
               </tbody>
-            {{else}}
-              <h3 class="text-2xl font-bold text-center p-6">No existen usuarios
-                disponibles</h3>
-            {{/if}}
-          </table>
 
-          <div class="flex justify-center items-center mt-4">
-            <button
-              class="py-2 rounded w-[50%] text-center bg-bright-red text-white hover:bg-dark-blue hover:text-bright-red"
-              type="submit"
-            >
-              Agregar
-            </button>
-          </div>
+            </table>
+
+            <div class="flex justify-center items-center mt-4">
+              <button
+                class="py-2 rounded w-[50%] text-center bg-bright-red text-white hover:bg-dark-blue hover:text-bright-red"
+                type="submit"
+              >
+                Agregar
+              </button>
+            </div>
+          {{else}}
+            <h3 class="text-2xl font-bold text-center p-6">No existen usuarios
+              disponibles</h3>
+          {{/if}}
         </form>
       </div>
     </div>

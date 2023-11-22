@@ -214,11 +214,10 @@ router.get('/asignar/:id',async (req,res)=>
 
         //Consultas para saber si hay estudiantes asociados al proyecto
         const students = await conn.execute('SELECT * FROM PROYECTOS_USUARIOS WHERE CODIGO_PROYECTO=:COD',[id]);
-
+        
         let sql = 'SELECT ID_USUARIO,NOMBRE, PAPELLIDO FROM USUARIOS WHERE ID_USUARIO'
 
-        let students2;
-
+        let students2 = undefined;
         if(students.rows.length > 0)
         {
             for(let i = 0;i<students.rows.length;i++)
@@ -232,13 +231,15 @@ router.get('/asignar/:id',async (req,res)=>
             students2 = await conn.execute(sql);
         }
         const nombres = [];
-        let data = students2.rows.map(row => {
-            nombres.push({
-                id_usuario: row[0],
-                nombre: row[1],
-                papellido: row[2]
-            })
-        });
+        if(students2 != undefined){
+            let data = students2.rows.map(row => {
+                nombres.push({
+                    id_usuario: row[0],
+                    nombre: row[1],
+                    papellido: row[2]
+                })
+            });
+        }
 
         //Consulta de estudiantes diferentes al proyecto
         let sql2 = 'SELECT ID_USUARIO,NOMBRE, PAPELLIDO FROM USUARIOS WHERE CODIGO_TIPO=2 AND CODIGO_ESTADO=2 AND ID_USUARIO'
@@ -251,11 +252,16 @@ router.get('/asignar/:id',async (req,res)=>
             {
                 if(i == students.rows.length-1){
                     sql2 += ' <> ' + students.rows[i][1] + ' ORDER BY ID_USUARIO';
+                    console.log(sql2)
                 }else{
-                    sql2 += ' <> ' + students.rows[i][1] + ' OR ID_USUARIO';
+                    sql2 += ' <> ' + students.rows[i][1] + ' AND ID_USUARIO';
                 }
             }
+
             students3 = await conn.execute(sql2);
+        }else
+        {
+            students3 = await conn.execute('SELECT ID_USUARIO,NOMBRE, PAPELLIDO FROM USUARIOS WHERE CODIGO_TIPO=2 AND CODIGO_ESTADO=2');
         }
 
         const nombres2 = [];
@@ -267,7 +273,6 @@ router.get('/asignar/:id',async (req,res)=>
             })
         });
 
-        console.log(nombres2)
         //Renderizo mi vista 
         res.render('profesor/asignar',{layout:'main2',proyecto,students,nombres:nombres,nombres2:nombres2});
 
