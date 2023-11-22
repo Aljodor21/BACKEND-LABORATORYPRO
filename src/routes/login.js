@@ -22,8 +22,26 @@ router.post('/', (req,res,next)=>{
     })(req,res,next);
 });
 
-router.get('/registro', (req, res) => {
-    res.render('login/registrar')
+router.get('/registro', async(req, res) => 
+{
+    try 
+    {
+        const pool = await db.iniciar();
+        const conn = await pool.getConnection(); 
+        
+        const result = await conn.execute('SELECT * FROM TIPOS WHERE ID_TIPO=2 OR ID_TIPO=3');
+        const data = [];
+
+        const rows = result.rows.map(row=>
+        {
+            data.push(row[1]);
+        })
+        console.log(data)
+        res.render('login/registrar',{result:data})
+    } catch (error) 
+    {
+        console.log('Error al consultar los tipos de usuarios permitidos')
+    }
 
 });
 
@@ -34,19 +52,7 @@ router.post('/registro', async (req, res) => {
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
 
-        const id = await conn.execute('SELECT * FROM USUARIOS ORDER BY ID_USUARIO');
-
-
-        let ultimo_id = 1;
-
-        for (let i = 0; i < id.rows.length; i++) {
-            if (i == id.rows.length - 1) {
-                ultimo_id = id.rows[i][0] + 1;
-            }
-        }
-
         const newUser = {
-            id_usuario: ultimo_id,
             nombre,
             papellido,
             sapellido,
@@ -58,7 +64,7 @@ router.post('/registro', async (req, res) => {
 
         newUser.contrasena = await bcrypt.cifrar(newUser.contrasena);
 
-        const result = await conn.execute('INSERT INTO USUARIOS VALUES(:id,:nombre,:papellido,:sapellido,:correo,:contrasena,SYSDATE,:ct,:ce)', [newUser.id_usuario, newUser.nombre, newUser.papellido, newUser.sapellido, newUser.correo, newUser.contrasena, newUser.codigo_tipo, newUser.codigo_estado]);
+        const result = await conn.execute('INSERT INTO USUARIOS VALUES(secuencia_usuarios.NEXTVAL,:nombre,:papellido,:sapellido,:correo,:contrasena,SYSDATE,:ct,:ce)', [newUser.nombre, newUser.papellido, newUser.sapellido, newUser.correo, newUser.contrasena, newUser.codigo_tipo, newUser.codigo_estado]);
 
 
         if (result.rowsAffected && result.rowsAffected >= 1) 
