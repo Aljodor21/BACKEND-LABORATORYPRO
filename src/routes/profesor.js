@@ -229,7 +229,8 @@ router.get('/asignar/:id', async (req, res) => {
                 nombres.push({
                     id_usuario: row[0],
                     nombre: row[1],
-                    papellido: row[2]
+                    papellido: row[2],
+                    id
                 })
             });
         }
@@ -284,20 +285,17 @@ router.post('/asignar/:id', async (req, res) => {
             req.flash('successf', 'Recuerda que debes elegír minimo un usuario');
             res.redirect(`/profesor/asignar/${id}`)
 
-        } else if (Object.keys(req.body).length > 3) 
-        {
+        } else if (Object.keys(req.body).length > 3) {
             req.flash('successf', 'Recuerda que solo puedes elegir un maximo de tres estudiantes');
             res.redirect(`/profesor/asignar/${id}`)
 
-        } else 
-        {
+        } else {
             const result = await conn.execute('SELECT * FROM PROYECTOS_USUARIOS WHERE CODIGO_PROYECTO=:COD', [id]);
 
 
             const obj = Object.keys(req.body);
 
-            if (result.rows.length == 0) 
-            {
+            if (result.rows.length == 0) {
                 let sql;
 
                 for (let i = 0; i < obj.length; i++) {
@@ -315,58 +313,52 @@ router.post('/asignar/:id', async (req, res) => {
                 }
             }
 
-            if (result.rows.length == 1) 
-            {
-                if (obj.length == 1 || obj.length == 2) 
-                {
+            if (result.rows.length == 1) {
+                if (obj.length == 1 || obj.length == 2) {
                     let sql;
 
-                    for (let i = 0; i < obj.length; i++) 
-                    {
+                    for (let i = 0; i < obj.length; i++) {
                         sql = await conn.execute('INSERT INTO PROYECTOS_USUARIOS VALUES(:IP,:IU)', [id, obj[i]]);
                     }
 
-                    if (sql.rowsAffected && sql.rowsAffected >= 1) 
-                    {
+                    if (sql.rowsAffected && sql.rowsAffected >= 1) {
                         await conn.commit();
                         await conn.release();
                         req.flash('success', 'Usuario agregado con exito');
                         res.redirect(`/profesor/asignar/${id}`);
 
-                    } else 
-                    {
+                    } else {
                         await conn.release();
                     }
-                } else 
-                {
-                    req.flash('successf', 'Recuerda que solo puedes elegir un maximo de tres estudiantes incluyendo los estudiantes registrados');
+                } else {
+                    req.flash('successf', 'Solo puedes registrar un maximo de dos estudiantes');
                     res.redirect(`/profesor/asignar/${id}`)
                 }
             }
 
-            if (result.rows.length == 2) 
-            {
-                if (obj.length == 1) 
-                {
+            if (result.rows.length == 2) {
+                if (obj.length == 1) {
                     let sql = await conn.execute('INSERT INTO PROYECTOS_USUARIOS VALUES(:IP,:IU)', [id, obj[0]]);;
 
-                    
-                    if (sql.rowsAffected && sql.rowsAffected >= 1) 
-                    {
+
+                    if (sql.rowsAffected && sql.rowsAffected >= 1) {
                         await conn.commit();
                         await conn.release();
                         req.flash('success', 'Usuario agregado con exito');
                         res.redirect(`/profesor/asignar/${id}`);
 
-                    } else 
-                    {
+                    } else {
                         await conn.release();
                     }
-                } else 
-                {
-                    req.flash('successf', 'Solo puedes registrar un estudiante o maximo dos');
+                } else {
+                    req.flash('successf', 'Solo puedes registrar un estudiante');
                     res.redirect(`/profesor/asignar/${id}`)
                 }
+            }
+
+            if (result.rows.length == 3) {
+                req.flash('successf', 'Ya no puede registrar mas estudiantes');
+                res.redirect(`/profesor/asignar/${id}`)
             }
         }
     } catch (error) {
@@ -375,9 +367,25 @@ router.post('/asignar/:id', async (req, res) => {
 });
 
 //Ruta para eliminar usuario de un proyecto
-router.get('/asignar/eliminar/:id', async (req, res) => {
-    try {
+router.get('/asignar/eliminar/:id/:id2', async (req, res) => {
+    try 
+    {
+        const {id,id2} = req.params;
+        const pool = await db.iniciar();
+        const conn = await pool.getConnection();
 
+        const result = await conn.execute('DELETE FROM PROYECTOS_USUARIOS WHERE CODIGO_USUARIO=:COD',[id]);
+
+
+        if (result.rowsAffected && result.rowsAffected >= 1) {
+            await conn.commit();
+            await conn.release();
+            req.flash('success', 'Usuario eliminado con exito');
+            res.redirect(`/profesor/asignar/${id2}`);
+
+        } else {
+            await conn.release();
+        }
     } catch (error) {
         console.log('Error al eliminar un usuario de un proyecto ', error)
     }
