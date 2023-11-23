@@ -54,8 +54,8 @@
       <input type="checkbox" id="switch-mode" hidden />
       <label for="switch-mode" class="switch-mode"></label>
 
-      <a href="profesor.html" class="profile">
-        <img src="/src/html/images/admin/people.png" />
+      <a href="/perfil" class="profile">
+        <img src="/images/admin/people.png" />
       </a>
     </div>
   </nav>
@@ -136,7 +136,7 @@
         <div class="head">
           <h3>Estudiantes disponibles</h3>
         </div>
-        <form action="">
+        <form action="/profesor/asignar/{{id}}" method="POST">
           {{#if nombres2}}
             <table>
               <thead>
@@ -156,8 +156,9 @@
                       <input
                         type="checkbox"
                         id="opcion1"
-                        name="opcion1"
-                        value="opcion1"
+                        name='{{id_usuario}}'
+                        value="true"
+                        
                       />
                     </td>
                   </tr>
