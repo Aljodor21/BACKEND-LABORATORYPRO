@@ -231,8 +231,6 @@ router.get("/estados",async(req,res)=>{
 
         const result = await conn.execute('SELECT * FROM ESTADOS ORDER BY ID_ESTADO');
 
-        await conn.release();
-
         const obj = [];
 
         const data = result.rows.map(row=>{
@@ -242,10 +240,15 @@ router.get("/estados",async(req,res)=>{
             });
         });
 
+        //Con estas querys validamos que ningún usuario tenga un estado para poder borrarlo
+        const pendiente = await conn.execute('SELECT * FROM USUARIOS WHERE CODIGO_ESTADO = 1');
+        const activo = await conn.execute('SELECT * FROM USUARIOS WHERE CODIGO_ESTADO = 2');
+        const rechazado = await conn.execute('SELECT * FROM USUARIOS WHERE CODIGO_ESTADO = 3');
 
-        res.render("admin/estados",{layout:'main2',obj});
-    } catch (e) {
-        console.log('Error al consultar los estados de la aplicación')
+        res.render("admin/estados",{layout:'main2',obj,pendiente,activo,rechazado});
+    } catch (e) 
+    {
+        console.log('Error al consultar los estados de la aplicación ',e)
     }
     
 });
@@ -430,7 +433,7 @@ router.get('/borrarTipo/:id', async(req,res)=>{
 
     } catch (e) {
         console.log('Error al borrar el tipo de usuario ',e);
-        req.flash('successf','No se puede eliminar el tipo de usuario '+e)
+        req.flash('successf','No se puede eliminar el tipo de usuario ')
         res.redirect('/admin/tipos');
     }
 });

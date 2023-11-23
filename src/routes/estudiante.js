@@ -115,8 +115,29 @@ router.get('/avances', async (req, res) => {
     }
 });
 
-router.get('/subirA', (req, res) => {
-    res.render('estudiante/subir', { layout: 'main2' });
+router.get('/subirA/:idp/:idu/:av', async(req, res) => 
+{
+    try 
+    {
+        const {idp,idu,av} = req.params;
+        const pool = await db.iniciar();
+        const conn = await pool.getConnection();
+
+        const result = await conn.execute('SELECT * FROM AVANCES WHERE CODIGO_PROYECTO=:ID ORDER BY ID_AVANCE',[idp]);
+
+        if(result.rows.length > 0)
+        {
+            if(result.rows.length = 1)
+            {
+
+            }
+        }
+        res.render('estudiante/subir', { layout: 'main2',});
+    } catch (error) 
+    {
+        
+    }
+    
 });
 
 module.exports = router

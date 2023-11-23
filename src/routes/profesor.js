@@ -125,7 +125,7 @@ router.get('/borrarProyecto/:id', async (req, res) => {
         }
     } catch (error) {
         req.flash('successf', 'No se puede eliminar el proyecto porque tiene usuarios asociados a el')
-        console.log('Error al borrar un proyecto ', error)
+        res.redirect('/profesor/proyectos');
     }
 });
 

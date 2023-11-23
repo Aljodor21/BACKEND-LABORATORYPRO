@@ -114,17 +114,17 @@
           </thead>
           <tbody>
             {{#each obj}}
-            <tr class="bg-white">
-              <td class="p-3 text-sm text-gray-700">{{id_estado}}</td>
-              <td class="p-3 text-sm text-gray-700">{{nombre}}</td>
+              <tr class="bg-white">
+                <td class="p-3 text-sm text-gray-700">{{id_estado}}</td>
+                <td class="p-3 text-sm text-gray-700">{{nombre}}</td>
 
-              <td class="p-3 font-bold flex gap-5">
-                <a href="/admin/editEstados/{{id_estado}}" title="Editar"><i
-                    class="hover:bg-orange-400 bx bx-edit-alt"
-                  ></i></a>
-                <a href="/admin/borrarEstado/{{id_estado}}" title="Borrar"><i class="hover:bg-red-400 bx bx-x"></i></a>
-              </td>
-            </tr>
+                <td class="p-3 font-bold flex gap-5">
+                  <a href="/admin/editEstados/{{id_estado}}" title="Editar"><i
+                      class="hover:bg-orange-400 bx bx-edit-alt"
+                    ></i></a>
+                  <a href="/admin/borrarEstado/{{id_estado}}" title="Borrar"><i class="hover:bg-red-400 bx bx-x"></i></a>
+                </td>
+              </tr>
             {{/each}}
           </tbody>
         </table>
