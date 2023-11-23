@@ -82,47 +82,29 @@
       class="container bg-bright-red mx-auto shadow-2xl shadow-black flex flex-col justify-center justify-items-center content-center rounded-xl mt-2"
     >
 
-      <h2 class="text-2xl font-bold text-center p-4">Nombre del Proyecto</h2>
+      <h2 class="text-2xl font-bold text-center p-4">{{proyecto.nombre}}</h2>
 
       <div class="p-6">
         <label for="desc" class="text-xl font-semibold">Descripción del proyecto</label>
         <p id="desc" class="bg-white rounded-xl p-3">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos,
-          consequatur fuga earum placeat adipisci, nam repellendus nostrum optio
-          omnis aspernatur tempora alias sunt? Delectus autem omnis, quam dicta
-          fuga hic.
+          {{proyecto.introduccion}}
         </p>
       </div>
 
-      <div class="p-6">
-        <label for="desc" class="text-xl font-semibold">Avance 1</label>
-        <p id="desc" class="bg-white rounded-xl p-3">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos,
-          consequatur fuga earum placeat adipisci, nam repellendus nostrum optio
-          omnis aspernatur tempora alias sunt? Delectus autem omnis, quam dicta
-          fuga hic.
-        </p>
-      </div>
-
-      <div class="p-6">
-        <label for="desc" class="text-xl font-semibold">Avance 2</label>
-        <p id="desc" class="bg-white rounded-xl p-3">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos,
-          consequatur fuga earum placeat adipisci, nam repellendus nostrum optio
-          omnis aspernatur tempora alias sunt? Delectus autem omnis, quam dicta
-          fuga hic.
-        </p>
-      </div>
-
-      <div class="p-6 mb-4">
-        <label for="desc" class="text-xl font-semibold">Avance 3</label>
-        <p id="desc" class="bg-white rounded-xl p-3">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos,
-          consequatur fuga earum placeat adipisci, nam repellendus nostrum optio
-          omnis aspernatur tempora alias sunt? Delectus autem omnis, quam dicta
-          fuga hic.
-        </p>
-      </div>
+      {{#if obj2}}
+        <div class="p-6">
+          <label for="desc" class="text-xl font-semibold">Avance 1</label>
+          <p id="desc" class="bg-white rounded-xl p-3">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Dignissimos, consequatur fuga earum placeat adipisci, nam
+            repellendus nostrum optio omnis aspernatur tempora alias sunt?
+            Delectus autem omnis, quam dicta fuga hic.
+          </p>
+        </div>
+      {{else}}
+        <h3 class="text-2xl font-bold text-center p-6">No existen avances
+            actualmente</h3>
+      {{/if}}
 
     </div>
 

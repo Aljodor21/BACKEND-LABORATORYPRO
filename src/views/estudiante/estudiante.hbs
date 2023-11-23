@@ -53,7 +53,7 @@
       <input type="checkbox" id="switch-mode" hidden />
       <label for="switch-mode" class="switch-mode"></label>
 
-      <a href="./user.html" class="profile">
+      <a href="/perfil" class="profile">
         <img src="/images/admin/people.png" />
       </a>
     </div>
@@ -82,7 +82,7 @@
       <li>
         <i class="bx bx-check-square"></i>
         <span class="text">
-          <h3>0</h3>
+          <h3>{{projects.rows.length}}</h3>
           <p>Proyectos</p>
         </span>
       </li>
@@ -95,27 +95,30 @@
         <div class="head">
           <h3>Proyectos asignados</h3>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Proyecto</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><a href="/estudiante/viewPE" class="hover:bg-bright-red">Machine
-                  Lerning</a></td>
-            </tr>
-            <tr>
-              <td><a href="/estudiante/viewPE" class="hover:bg-bright-red">Machine
-                  Lerning</a></td>
-            </tr>
-            <tr>
-              <td><a href="/estudiante/viewPE" class="hover:bg-bright-red">Machine
-                  Lerning</a></td>
-            </tr>
-          </tbody>
-        </table>
+        {{#if proyectos}}
+          <table>
+            <thead>
+              <tr>
+                <th>Proyecto</th>
+                <th>Fecha de creación</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each proyectos}}
+                <tr>
+                  <td><a
+                      href="/estudiante/viewPE/{{id_proyecto}}"
+                      class="hover:bg-bright-red"
+                    >{{nombre_proyecto}}</a></td>
+                    <td>{{timeago fecha_creacion}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        {{else}}
+          <h3 class="text-2xl font-bold text-center p-6">No existen proyectos
+            asociados actualmente</h3>
+        {{/if}}
       </div>
     </div>
   </main>

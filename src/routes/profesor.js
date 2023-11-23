@@ -194,7 +194,8 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get('/asignar/:id', async (req, res) => {
+router.get('/asignar/:id', async (req, res) => 
+{
     try {
         const { id } = req.params;
         const pool = await db.iniciar();
@@ -374,7 +375,7 @@ router.get('/asignar/eliminar/:id/:id2', async (req, res) => {
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
 
-        const result = await conn.execute('DELETE FROM PROYECTOS_USUARIOS WHERE CODIGO_USUARIO=:COD',[id]);
+        const result = await conn.execute('DELETE FROM PROYECTOS_USUARIOS WHERE CODIGO_USUARIO=:COD AND CODIGO_PROYECTO=:COD2',[id,id2]);
 
 
         if (result.rowsAffected && result.rowsAffected >= 1) {
