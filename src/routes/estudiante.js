@@ -61,9 +61,18 @@ router.get('/viewPE/:id', async (req, res) => {
             introduccion: result.rows[0][2]
         };
 
+        const result2 = await conn.execute('SELECT * FROM AVANCES WHERE CODIGO_PROYECTO=:id ORDER BY ID_AVANCE',[id]);
 
+        const avances = []
 
-        res.render('estudiante/viewPE', { layout: 'main2', proyecto })
+        const data = result2.rows.map(row => {
+            avances.push({
+                id_avance: row[0],
+                descripcion:row[1]
+            })
+        });
+
+        res.render('estudiante/viewPE', { layout: 'main2', proyecto,avances })
     } catch (error) {
         console.log('Error al consultar un proyecto en especifico ', error)
     }
@@ -110,6 +119,7 @@ router.get('/avances', async (req, res) => {
 
 
         res.render('estudiante/avances', { layout: 'main2',proyectos:proyectos});
+        
     } catch (error) {
         console.log('Error al mostrar los avances del usuario ', error)
     }
@@ -132,12 +142,37 @@ router.get('/subirA/:idp/:idu/:av', async(req, res) =>
 
             }
         }
-        res.render('estudiante/subir', { layout: 'main2',});
+        res.render('estudiante/subir', { layout: 'main2',idp,idu,av});
     } catch (error) 
     {
-        
+        console.log('Error al consultar el avance del usuario ',error)
     }
     
+});
+
+router.post('/subirA/:idp/:idu/:av', async(req, res) =>
+{
+    try 
+    {
+        const {idp,idu,av} = req.params;
+        const {avance} = req.body;
+        const pool = await db.iniciar();
+        const conn = await pool.getConnection();
+
+        const result = await conn.execute('INSERT INTO AVANCES(id_avance,descripcion_avance,codigo_proyecto,codigo_usuario) VALUES(secuencia_avances.NEXTVAL,:avance,:idp,:idu)',[avance,idp,idu]);
+
+        if(result.rowsAffected && result.rowsAffected >=1){
+            await conn.commit();
+            await conn.release();
+            req.flash('success','Avance insertado con exito');
+            res.redirect('/estudiante/avances')
+        }else{
+            await conn.release()
+        }
+    } catch (error) 
+    {
+        console.log('Error al subir el avance ',error)
+    }
 });
 
 module.exports = router

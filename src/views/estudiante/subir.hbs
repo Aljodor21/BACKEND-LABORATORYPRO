@@ -81,10 +81,11 @@
     <div
       class="container w-full h-auto bg-bright-red mt-6 rounded-xl shadow-xl flex justify-center"
     >
-      <form action="" method="POST" class="flex flex-col p-6 gap-4 w-full">
+      <form action="/estudiante/subirA/{{idp}}/{{idu}}/{{av}}" method="POST" class="flex flex-col p-6 gap-4 w-full">
 
         <textarea
           id="message"
+          name="avance"
           rows="10"
           class="block p-2 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
           placeholder="Ingresa el avance del proyecto..."
