@@ -206,11 +206,12 @@ router.post('/retroalimentar/:ip/:ia',async(req,res)=>
     {
         const {ip,ia} = req.params;
         const {retroalimentacion} = req.body;
-        console.log(req.params,req.body)
+
+        console.log(req.user)
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
         
-        const result = await conn.execute('UPDATE AVANCES SET retroalimentacion=:ret,codigo_profesor=:cod WHERE id_avance=:id',[retroalimentacion,21,ia]);
+        const result = await conn.execute('UPDATE AVANCES SET retroalimentacion=:ret,codigo_profesor=:cod WHERE id_avance=:id',[retroalimentacion,req.user[0],ia]);
 
         if(result.rowsAffected && result.rowsAffected >= 1)
         {
@@ -426,9 +427,10 @@ router.post('/asignar/:id', async (req, res) => {
 
 //Ruta para eliminar usuario de un proyecto
 router.get('/asignar/eliminar/:id/:id2', async (req, res) => {
+    const {id,id2} = req.params;
     try 
     {
-        const {id,id2} = req.params;
+        
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
 

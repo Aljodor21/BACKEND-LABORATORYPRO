@@ -107,7 +107,7 @@ router.get('/viewRetroalimentacion/:ip/:ia',async(req,res)=>
             retroalimentacion: result2.rows[0][4],
             codigo_coordinador: result2.rows[0][5]
         }
-        console.log(obj,obj2)
+        
         res.render('estudiante/retroalimentacion',{layout:'main2',obj,obj2})
     } catch (error) 
     {
