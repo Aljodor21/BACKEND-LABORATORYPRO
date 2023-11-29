@@ -191,7 +191,7 @@ router.get('/retroalimentar/:ip/:ia',async(req,res)=>
             codigo_proyecto: result2.rows[0][2],
             codigo_estudiante: result2.rows[0][3],
             retroalimentacion: result2.rows[0][4],
-            codigo_coordinador: result2.rows[0][4]
+            codigo_coordinador: result2.rows[0][5]
         }
         res.render('profesor/retro',{layout:'main2',obj,obj2})
     } catch (error) 
@@ -446,7 +446,7 @@ router.get('/asignar/eliminar/:id/:id2', async (req, res) => {
         }
     } catch (error) 
     {
-        req.flash('successf', 'No se puede eliminar el usuario');
+        req.flash('successf', 'No se puede eliminar el usuario porque tiene avances asociados');
         res.redirect(`/profesor/asignar/${id2}`);
         console.log('Error al eliminar un usuario de un proyecto ', error)
     }

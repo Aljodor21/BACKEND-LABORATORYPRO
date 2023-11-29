@@ -69,7 +69,8 @@ router.get('/viewPE/:id', async (req, res) => {
         const data = result2.rows.map(row => {
             avances.push({
                 id_avance: row[0],
-                descripcion:row[1]
+                descripcion:row[1],
+                id_proyecto: proyecto.id_proyecto
             })
         });
 
@@ -80,6 +81,39 @@ router.get('/viewPE/:id', async (req, res) => {
 
 });
 
+router.get('/viewRetroalimentacion/:ip/:ia',async(req,res)=>
+{
+    try 
+    {
+        const {ip,ia} = req.params;
+        const pool = await db.iniciar();
+        const conn = await pool.getConnection();
+
+        const result = await conn.execute('SELECT * FROM PROYECTOS WHERE ID_PROYECTO=:id', [ip]);
+
+        const obj = {
+            id_proyecto: result.rows[0][0],
+            nombre: result.rows[0][1],
+            introduccion: result.rows[0][2],
+            fecha_creacion: result.rows[0][3]
+        }
+        const result2 = await conn.execute('SELECT * FROM AVANCES WHERE ID_AVANCE=:id', [ia]);
+
+        const obj2 = {
+            id_avance: result2.rows[0][0],
+            descripcion_avance: result2.rows[0][1],
+            codigo_proyecto: result2.rows[0][2],
+            codigo_estudiante: result2.rows[0][3],
+            retroalimentacion: result2.rows[0][4],
+            codigo_coordinador: result2.rows[0][5]
+        }
+        console.log(obj,obj2)
+        res.render('estudiante/retroalimentacion',{layout:'main2',obj,obj2})
+    } catch (error) 
+    {
+        console.log('Error al visualizar la retroalimentación ',error)
+    }
+});
 //Ruta para mostrrar vista de avances 
 router.get('/avances', async (req, res) => {
     try {

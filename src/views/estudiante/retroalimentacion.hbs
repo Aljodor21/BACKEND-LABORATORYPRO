@@ -49,11 +49,12 @@
       </div>
     </form>
 
+    <!--Imagen del navbar-->
     <div class="flex items-center gap-6">
       <input type="checkbox" id="switch-mode" hidden />
       <label for="switch-mode" class="switch-mode"></label>
 
-      <a href="../perfil/perfil.html" class="profile">
+      <a href="./userA.html" class="profile">
         <img src="/images/admin/people.png" />
       </a>
     </div>
@@ -71,7 +72,7 @@
           </li>
           <li><i class="bx bx-chevron-right"></i></li>
           <li>
-            <p class="text-bright-red">Visualizar Proyectos</p>
+            <p class="text-bright-red">Ver retroalimentación</p>
             <!--<a class="active" href="#"></a>-->
           </li>
         </ul>
@@ -79,32 +80,33 @@
     </div>
 
     <div
-      class="container bg-bright-red mx-auto shadow-2xl shadow-black flex flex-col justify-center justify-items-center content-center rounded-xl mt-2"
+      class="container mx-auto bg-bright-red mt-6 rounded-xl shadow-2xl shadow-black flex flex-col justify-center sm:w-auto md:w-[50%]"
     >
+      <h2 class="text-2xl font-bold text-center p-4">{{obj.nombre}}</h2>
 
-      <h2 class="text-2xl font-bold text-center p-4">{{proyecto.nombre}}</h2>
-
-      <div class="p-6">
+      <div class="p-6 md:w-[80%] mx-auto">
         <label for="desc" class="text-xl font-semibold">Descripción del proyecto</label>
         <p id="desc" class="bg-white rounded-xl p-3">
-          {{proyecto.introduccion}}
+          {{obj.introduccion}}
         </p>
       </div>
 
-      {{#if avances}}
-        {{#each avances}}
-          <a href="/estudiante/viewRetroalimentacion/{{id_proyecto}}/{{id_avance}}">
-            <div class="p-6">
-              <label for="desc" class="text-xl font-semibold">Avance</label>
-              <p id="desc" class="bg-white rounded-xl p-3">
-                {{descripcion}}
-              </p>
-            </div>
-          </a>
-        {{/each}}
+      <div class="p-6 md:w-[80%] mx-auto">
+        <label for="desc" class="text-xl font-semibold">Descripción del avance</label>
+        <p id="desc" class="bg-white rounded-xl p-3">
+          {{obj2.descripcion_avance}}
+        </p>
+      </div>
+
+      {{#if obj2.retroalimentacion}}
+        <div class="p-6 md:w-[80%] mx-auto">
+          <label for="desc" class="text-xl font-semibold">Retroalimentación</label>
+          <p id="desc" class="bg-white rounded-xl p-3">
+            {{obj2.retroalimentacion}}
+          </p>
+        </div>
       {{else}}
-        <h3 class="text-2xl font-bold text-center p-6">No existen avances
-          actualmente</h3>
+        <h3 class="text-2xl font-bold text-center p-6">Aun no existe retroalimentación</h3>
       {{/if}}
 
     </div>
