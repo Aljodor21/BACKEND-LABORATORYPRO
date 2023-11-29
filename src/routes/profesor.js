@@ -151,11 +151,8 @@ router.get("/viewPP/:id", async (req, res) => {
 
         const data = result2.rows.map((row => {
             obj2.push({
-                codigo_proyecto: row[0],
-                codigo_usuario: row[1],
-                descripcion_avance: row[2],
-                retroalimentacion: row[3],
-                codigo_coordinador: row[4],
+                id_avance:row[0],
+                descripcion_avance: row[1]
             })
         }));
 
@@ -387,7 +384,10 @@ router.get('/asignar/eliminar/:id/:id2', async (req, res) => {
         } else {
             await conn.release();
         }
-    } catch (error) {
+    } catch (error) 
+    {
+        req.flash('successf', 'No se puede eliminar el usuario');
+        res.redirect(`/profesor/asignar/${id2}`);
         console.log('Error al eliminar un usuario de un proyecto ', error)
     }
 });
