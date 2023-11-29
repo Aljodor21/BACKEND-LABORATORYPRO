@@ -138,7 +138,7 @@ router.get("/viewPP/:id", async (req, res) => {
         const conn = await pool.getConnection();
 
         const result = await conn.execute('SELECT * FROM PROYECTOS WHERE ID_PROYECTO=:id', [id]);
-        const result2 = await conn.execute('SELECT * FROM AVANCES WHERE CODIGO_PROYECTO=:id', [id]);
+        const result2 = await conn.execute('SELECT * FROM AVANCES WHERE CODIGO_PROYECTO=:id ORDER BY id_avance', [id]);
 
         const obj = {
             id_proyecto: result.rows[0][0],
@@ -152,18 +152,78 @@ router.get("/viewPP/:id", async (req, res) => {
         const data = result2.rows.map((row => {
             obj2.push({
                 id_avance:row[0],
-                descripcion_avance: row[1]
+                descripcion_avance: row[1],
+                id_proyecto: obj.id_proyecto
             })
         }));
 
         await conn.release();
-        res.render('profesor/viewPP', { layout: 'main2', obj: obj, obj2 })
+        res.render('profesor/viewPP', { layout: 'main2', obj, obj2 });
     } catch (error) {
         console.log('Error al consultar proyecto ' + error)
     }
 
 })
 
+//Ruta para hacer retroalimentación
+router.get('/retroalimentar/:ip/:ia',async(req,res)=>
+{
+    try 
+    {
+        const {ip,ia} = req.params;
+        const pool = await db.iniciar();
+        const conn = await pool.getConnection();
+
+        const result = await conn.execute('SELECT * FROM PROYECTOS WHERE ID_PROYECTO=:id', [ip]);
+
+        const result2 = await conn.execute('SELECT * FROM AVANCES WHERE ID_AVANCE=:id', [ia]);
+
+        const obj = {
+            id_proyecto: result.rows[0][0],
+            nombre: result.rows[0][1],
+            introduccion: result.rows[0][2],
+            fecha_creacion: result.rows[0][3]
+        }
+
+        const obj2 = {
+            id_avance: result2.rows[0][0],
+            descripcion_avance: result2.rows[0][1],
+            codigo_proyecto: result2.rows[0][2],
+            codigo_estudiante: result2.rows[0][3],
+            retroalimentacion: result2.rows[0][4],
+            codigo_coordinador: result2.rows[0][4]
+        }
+        res.render('profesor/retro',{layout:'main2',obj,obj2})
+    } catch (error) 
+    {
+        console.log('Error al retroalimentar proyecto ',error);
+    }
+});
+
+router.post('/retroalimentar/:ip/:ia',async(req,res)=>
+{
+    try 
+    {
+        const {ip,ia} = req.params;
+        const {retroalimentacion} = req.body;
+        console.log(req.params,req.body)
+        const pool = await db.iniciar();
+        const conn = await pool.getConnection();
+        
+        const result = await conn.execute('UPDATE AVANCES SET retroalimentacion=:ret,codigo_profesor=:cod WHERE id_avance=:id',[retroalimentacion,21,ia]);
+
+        if(result.rowsAffected && result.rowsAffected >= 1)
+        {
+            await conn.commit();
+            await conn.release();
+            req.flash('success','Retroalimentación realizada con exito');
+            res.redirect(`/profesor/retroalimentar/${ip}/${ia}`)
+        }
+    } catch (error) 
+    {
+        console.log('Error al publicar la retroalimentación del proyecto ',error);
+    }
+});
 
 //Ruta para enlazar estudiantes con proyectos en nuestra tabla pivote proyectos_usuarios
 router.get('/', async (req, res) => {
@@ -190,7 +250,7 @@ router.get('/', async (req, res) => {
 
 });
 
-
+//ruta para ver asignación de proyectos con usuarios
 router.get('/asignar/:id', async (req, res) => 
 {
     try {
