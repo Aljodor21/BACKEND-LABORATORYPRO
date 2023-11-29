@@ -4,6 +4,7 @@ const router = express.Router();
 //Instancia de mi base de datos
 const db = require('../database');
 
+//Ruta para ver proyectos asignados y visualizar los proyectos
 router.get('/', async (req, res) => {
     try {
         //const id = req.user[0];
@@ -79,6 +80,7 @@ router.get('/viewPE/:id', async (req, res) => {
 
 });
 
+//Ruta para mostrrar vista de avances 
 router.get('/avances', async (req, res) => {
     try {
         //const id = req.user[0];
@@ -135,14 +137,46 @@ router.get('/subirA/:idp/:idu/:av', async(req, res) =>
 
         const result = await conn.execute('SELECT * FROM AVANCES WHERE CODIGO_PROYECTO=:ID ORDER BY ID_AVANCE',[idp]);
 
+        console.log(result.rows.length)
+        console.log(av)
+
         if(result.rows.length > 0)
         {
-            if(result.rows.length = 1)
+            if(result.rows.length == 1 && (av==2 || av==3))
             {
+                if(av==3)
+                {
+                    req.flash('successf','Debes subir primero el avance 2');
+                    res.redirect('/estudiante/avances');
+                }else{
+                    res.render('estudiante/subir', { layout: 'main2',idp,idu,av});
+                }
+                
+            }else if(result.rows.length == 2 &&  av==3)
+            {
+                res.render('estudiante/subir', { layout: 'main2',idp,idu,av});
+            }else if(result.rows.length == 3)
+            {
+                req.flash('successf','Avance subido, debes esperar la retroalimentación');
+                res.redirect('/estudiante/avances');
+            }
+            else
+            {
+                req.flash('successf','Avance subido, debes esperar la retroalimentación');
+                res.redirect('/estudiante/avances');
+            }
 
+            
+        }else
+        {
+            if(av==1){
+                res.render('estudiante/subir', { layout: 'main2',idp,idu,av});
+            }else{
+                req.flash('successf','Debes subir primero el avance 1');
+                res.redirect('/estudiante/avances');
             }
         }
-        res.render('estudiante/subir', { layout: 'main2',idp,idu,av});
+        
     } catch (error) 
     {
         console.log('Error al consultar el avance del usuario ',error)
