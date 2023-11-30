@@ -138,7 +138,7 @@ router.get("/viewPP/:id",isLoggedIn, isProfe, async (req, res) => {
         const conn = await pool.getConnection();
 
         const result = await conn.execute('SELECT * FROM PROYECTOS WHERE ID_PROYECTO=:id', [id]);
-        const result2 = await conn.execute('SELECT * FROM AVANCES WHERE CODIGO_PROYECTO=:id ORDER BY id_avance', [id]);
+        const result2 = await conn.execute('SELECT id_avance,descripcion_avance,nombre,papellido FROM AVANCES INNER JOIN USUARIOS ON ID_USUARIO = CODIGO_USUARIO WHERE CODIGO_PROYECTO=:id ORDER BY id_avance', [id]);
 
         const obj = {
             id_proyecto: result.rows[0][0],
@@ -149,10 +149,13 @@ router.get("/viewPP/:id",isLoggedIn, isProfe, async (req, res) => {
 
         const obj2 = [];
 
+        console.log(result2.rows)
         const data = result2.rows.map((row => {
             obj2.push({
                 id_avance:row[0],
                 descripcion_avance: row[1],
+                nombre: row[2],
+                papellido: row[3],
                 id_proyecto: obj.id_proyecto
             })
         }));

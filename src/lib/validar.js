@@ -38,7 +38,6 @@ module.exports =
     },
     isProfe(req,res,next)
     {
-        console.log(req.user)
         if(req.user[7] == 3)
         {
             return next();

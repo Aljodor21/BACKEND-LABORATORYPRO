@@ -983,6 +983,10 @@ video {
   justify-items: center;
 }
 
+.items-end {
+  justify-content: flex-end;
+}
+
 .gap-12 {
   gap: 3rem;
 }

@@ -100,13 +100,20 @@
 
       {{#if obj2.retroalimentacion}}
         <div class="p-6 md:w-[80%] mx-auto">
-          <label for="desc" class="text-xl font-semibold">Retroalimentación</label>
+          <label
+            for="desc"
+            class="text-xl font-semibold"
+          >Retroalimentación</label>
           <p id="desc" class="bg-white rounded-xl p-3">
             {{obj2.retroalimentacion}}
           </p>
+          <div class="flex items-end p-2">
+            <label class="font-semibold" for="">{{obj2.nombre}} {{obj2.papellido}}</label>
+          </div>
         </div>
       {{else}}
-        <h3 class="text-2xl font-bold text-center p-6">Aun no existe retroalimentación</h3>
+        <h3 class="text-2xl font-bold text-center p-6">Aun no existe
+          retroalimentación</h3>
       {{/if}}
 
     </div>

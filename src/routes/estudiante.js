@@ -62,7 +62,7 @@ router.get('/viewPE/:id',isLoggedIn,isStudent, async (req, res) => {
             introduccion: result.rows[0][2]
         };
 
-        const result2 = await conn.execute('SELECT * FROM AVANCES WHERE CODIGO_PROYECTO=:id ORDER BY ID_AVANCE',[id]);
+        const result2 = await conn.execute('SELECT id_avance,descripcion_avance,nombre,papellido FROM AVANCES INNER JOIN USUARIOS ON ID_USUARIO = CODIGO_USUARIO WHERE CODIGO_PROYECTO=:id ORDER BY ID_AVANCE',[id]);
 
         const avances = []
 
@@ -70,6 +70,8 @@ router.get('/viewPE/:id',isLoggedIn,isStudent, async (req, res) => {
             avances.push({
                 id_avance: row[0],
                 descripcion:row[1],
+                nombre: row[2],
+                papellido: row[3],
                 id_proyecto: proyecto.id_proyecto
             })
         });
@@ -97,15 +99,14 @@ router.get('/viewRetroalimentacion/:ip/:ia',isLoggedIn,isStudent,async(req,res)=
             introduccion: result.rows[0][2],
             fecha_creacion: result.rows[0][3]
         }
-        const result2 = await conn.execute('SELECT * FROM AVANCES WHERE ID_AVANCE=:id', [ia]);
+        const result2 = await conn.execute('SELECT id_avance,descripcion_avance,retroalimentacion,nombre,papellido FROM AVANCES INNER JOIN USUARIOS ON id_usuario=codigo_profesor WHERE ID_AVANCE=:id', [ia]);
 
         const obj2 = {
             id_avance: result2.rows[0][0],
             descripcion_avance: result2.rows[0][1],
-            codigo_proyecto: result2.rows[0][2],
-            codigo_estudiante: result2.rows[0][3],
-            retroalimentacion: result2.rows[0][4],
-            codigo_coordinador: result2.rows[0][5]
+            retroalimentacion: result2.rows[0][2],
+            nombre: result2.rows[0][3],
+            papellido: result2.rows[0][4]
         }
         
         res.render('estudiante/retroalimentacion',{layout:'main2',obj,obj2})
