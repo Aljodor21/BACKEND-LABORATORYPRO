@@ -2,19 +2,19 @@ const express = require("express");
 const router = express.Router();
 const email = require('../lib/email');
 
-//Creamos una instancia de la base de datos, para realizar las diferentes consultas y tambien una instancia de nuestra authenticacion, tambien un modulo para encriptar contraseña
+//Creamos una instancia de la base de datos, para realizar las diferentes consultas y tambien una instancia de nuestra authenticacion, tambien un modulo para encriptar contraseña, tambien el validador de rutas
 const db = require('../database')
 const passport = require('passport');
 const bcrypt = require('../lib/helpers');
+const {isNotLoggeIn} = require('../lib/validar');
 
 
-
-router.get('/', (req, res) => {
+router.get('/',isNotLoggeIn, (req, res) => {
     res.render('login/ingresar')
 
 });
 
-router.post('/', (req,res,next)=>{
+router.post('/',isNotLoggeIn, (req,res,next)=>{
     passport.authenticate('local.ingreso', {
         successRedirect: '/perfil',
         failureRedirect: '/login',
@@ -22,7 +22,7 @@ router.post('/', (req,res,next)=>{
     })(req,res,next);
 });
 
-router.get('/registro', async(req, res) => 
+router.get('/registro',isNotLoggeIn, async(req, res) => 
 {
     try 
     {
@@ -45,7 +45,7 @@ router.get('/registro', async(req, res) =>
 
 });
 
-router.post('/registro', async (req, res) => {
+router.post('/registro',isNotLoggeIn, async (req, res) => {
     const { nombre, papellido, sapellido,correo,contrasena, codigo_tipo } = req.body;
 
     try {

@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-//Instancia de la base de datos
+//Instancia de la base de datos e importamos validador de sesión
+const {isLoggedIn} = require('../lib/validar');
 const db = require('../database');
 
-router.get('/', async (req, res) => 
+router.get('/',isLoggedIn, async (req, res) => 
 {
     
     try 

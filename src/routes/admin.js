@@ -4,9 +4,10 @@ const email = require('../lib/email');
 
 //Instancia de nuestra base de datos
 const db = require('../database');
+const {isAdmin,isLoggedIn} = require('../lib/validar');
 
 //Metodo para mostrar los usuarios con solicitudes de tipo pendiente
-router.get("/",async (req,res)=>{
+router.get("/",isLoggedIn,isAdmin,async (req,res)=>{
 
     try{
         const pool =await db.iniciar();
@@ -39,7 +40,7 @@ router.get("/",async (req,res)=>{
 });
 
 //Ruta para rechazar a las personas que no se desean.
-router.get('/rechazado/:id', async(req,res)=>{
+router.get('/rechazado/:id',isLoggedIn,isAdmin, async(req,res)=>{
     try {
         let id_usuario = req.params.id;
         const pool = await db.iniciar();
@@ -70,7 +71,7 @@ router.get('/rechazado/:id', async(req,res)=>{
 });
 
 //Ruta para aceptar a las personas que deseamos.
-router.get('/aceptado/:id', async(req,res)=>{
+router.get('/aceptado/:id',isLoggedIn,isAdmin, async(req,res)=>{
     try {
         let id_usuario = req.params.id;
         const pool = await db.iniciar();
@@ -100,7 +101,7 @@ router.get('/aceptado/:id', async(req,res)=>{
 });
 
 //Ruta para mostrar mis usuarios registrados, sea en estado de aprobado o rechazado
-router.get("/registrados",async (req,res)=>{
+router.get("/registrados",isLoggedIn,isAdmin,async (req,res)=>{
 
     try {
         const pool = await db.iniciar();
@@ -131,7 +132,7 @@ router.get("/registrados",async (req,res)=>{
 });
 
 //Ruta para editar usuarios creados
-router.get("/editRegistrados/:id",async (req,res)=>{
+router.get("/editRegistrados/:id",isLoggedIn,isAdmin,async (req,res)=>{
     try{
         const id_usuario = req.params.id;
         const pool = await db.iniciar();
@@ -164,7 +165,7 @@ router.get("/editRegistrados/:id",async (req,res)=>{
     
 });
 
-router.post("/editRegistrados/:id",async (req,res)=>{
+router.post("/editRegistrados/:id",isLoggedIn,isAdmin,async (req,res)=>{
     try {
         const {id} = req.params;
         const {nombre,papellido,sapellido,correo,codigo_tipo,codigo_estado} = req.body;
@@ -202,7 +203,7 @@ router.post("/editRegistrados/:id",async (req,res)=>{
 });
 
 //Ruta para eliminar un usuario registrado
-router.get('/eliminarRegistrado/:id',async (req,res)=>{
+router.get('/eliminarRegistrado/:id',isLoggedIn,isAdmin,async (req,res)=>{
     const id = req.params.id
     
     try {
@@ -224,7 +225,7 @@ router.get('/eliminarRegistrado/:id',async (req,res)=>{
 });
 
 //RUTAS PARA HACER CRUD CON LAS TABLAS FUERTES
-router.get("/estados",async(req,res)=>{
+router.get("/estados",isLoggedIn,isAdmin,async(req,res)=>{
     try {
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
@@ -254,7 +255,7 @@ router.get("/estados",async(req,res)=>{
 });
 
 //Metodo para insertar un nuevo estado
-router.post('/estados',async (req,res)=>{
+router.post('/estados',isLoggedIn,isAdmin,async (req,res)=>{
     try {
         const {id_estado,estado} = req.body;
         console.log(id_estado,estado)
@@ -284,7 +285,7 @@ router.post('/estados',async (req,res)=>{
     }
 })
 
-router.get('/borrarEstado/:id',async (req,res)=>{
+router.get('/borrarEstado/:id',isLoggedIn,isAdmin,async (req,res)=>{
     try {
         const {id} = req.params;
         
@@ -309,7 +310,7 @@ router.get('/borrarEstado/:id',async (req,res)=>{
     }
 });
 
-router.get("/editEstados/:id",async (req,res)=>{
+router.get("/editEstados/:id",isLoggedIn,isAdmin,async (req,res)=>{
     try {
         const {id} = req.params;
 
@@ -334,7 +335,7 @@ router.get("/editEstados/:id",async (req,res)=>{
     
 });
 
-router.post("/editEstados/:id",async (req,res)=>{
+router.post("/editEstados/:id",isLoggedIn,isAdmin,async (req,res)=>{
     try {
         const {id} = req.params;
         const {estado} = req.body;
@@ -362,7 +363,7 @@ router.post("/editEstados/:id",async (req,res)=>{
 });
 
 //Rutas para hacer CRUD con tipos
-router.get("/tipos",async (req,res)=>{
+router.get("/tipos",isLoggedIn,isAdmin,async (req,res)=>{
     try 
     {
         const pool = await db.iniciar();
@@ -387,7 +388,7 @@ router.get("/tipos",async (req,res)=>{
     
 });
 
-router.post('/tipos', async(req,res)=>{
+router.post('/tipos',isLoggedIn,isAdmin, async(req,res)=>{
     try {
         const {id_tipo,tipo} = req.body;
         const pool = await db.iniciar();
@@ -412,7 +413,7 @@ router.post('/tipos', async(req,res)=>{
     }
 });
 
-router.get('/borrarTipo/:id', async(req,res)=>{
+router.get('/borrarTipo/:id',isLoggedIn,isAdmin, async(req,res)=>{
     try {
         const {id} = req.params;
         
@@ -438,7 +439,7 @@ router.get('/borrarTipo/:id', async(req,res)=>{
     }
 });
 
-router.get("/editTipos/:id",async (req,res)=>{
+router.get("/editTipos/:id",isLoggedIn,isAdmin,async (req,res)=>{
     try {
         const {id} = req.params;
         const pool = await db.iniciar();
@@ -464,7 +465,7 @@ router.get("/editTipos/:id",async (req,res)=>{
     
 });
 
-router.post('/editTipos/:id', async(req,res)=>{
+router.post('/editTipos/:id',isLoggedIn,isAdmin, async(req,res)=>{
     try{
         const {id} = req.params;
         const {tipo_usuario} = req.body

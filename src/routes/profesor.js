@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-//Instancia de la BD para realizar las diferentes consultas
+//Instancia de la BD para realizar las diferentes consultas y validador de rutas
 const db = require('../database');
-
+const {isLoggedIn,isProfe}= require('../lib/validar');
 
 //Rutas para visualizar todos los proyectos y para hacer El crud con los mismos
-router.get("/proyectos", async (req, res) => {
+router.get("/proyectos",isLoggedIn, isProfe, async (req, res) => {
     try {
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
@@ -33,7 +33,7 @@ router.get("/proyectos", async (req, res) => {
 
 });
 
-router.post('/proyectos', async (req, res) => {
+router.post('/proyectos',isLoggedIn, isProfe, async (req, res) => {
     try {
         const { nombre_proyecto, introduccion } = req.body;
 
@@ -55,7 +55,7 @@ router.post('/proyectos', async (req, res) => {
     }
 });
 
-router.get('/editProyecto/:id', async (req, res) => {
+router.get('/editProyecto/:id',isLoggedIn, isProfe, async (req, res) => {
     try {
         const { id } = req.params;
         const pool = await db.iniciar();
@@ -82,7 +82,7 @@ router.get('/editProyecto/:id', async (req, res) => {
     }
 });
 
-router.post('/editProyecto/:id', async (req, res) => {
+router.post('/editProyecto/:id',isLoggedIn, isProfe, async (req, res) => {
     try {
         const { id } = req.params;
         const { nombre, introduccion } = req.body;
@@ -106,7 +106,7 @@ router.post('/editProyecto/:id', async (req, res) => {
     }
 });
 
-router.get('/borrarProyecto/:id', async (req, res) => {
+router.get('/borrarProyecto/:id',isLoggedIn, isProfe, async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -130,7 +130,7 @@ router.get('/borrarProyecto/:id', async (req, res) => {
 });
 
 //Asi podemos visualizar un proyecto en especifico y ver sus atributos
-router.get("/viewPP/:id", async (req, res) => {
+router.get("/viewPP/:id",isLoggedIn, isProfe, async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -166,7 +166,7 @@ router.get("/viewPP/:id", async (req, res) => {
 })
 
 //Ruta para hacer retroalimentación
-router.get('/retroalimentar/:ip/:ia',async(req,res)=>
+router.get('/retroalimentar/:ip/:ia',isLoggedIn, isProfe,async(req,res)=>
 {
     try 
     {
@@ -200,7 +200,7 @@ router.get('/retroalimentar/:ip/:ia',async(req,res)=>
     }
 });
 
-router.post('/retroalimentar/:ip/:ia',async(req,res)=>
+router.post('/retroalimentar/:ip/:ia',isLoggedIn, isProfe,async(req,res)=>
 {
     try 
     {
@@ -227,7 +227,7 @@ router.post('/retroalimentar/:ip/:ia',async(req,res)=>
 });
 
 //Ruta para enlazar estudiantes con proyectos en nuestra tabla pivote proyectos_usuarios
-router.get('/', async (req, res) => {
+router.get('/', isLoggedIn, isProfe, async (req, res) => {
     try {
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
@@ -252,7 +252,7 @@ router.get('/', async (req, res) => {
 });
 
 //ruta para ver asignación de proyectos con usuarios
-router.get('/asignar/:id', async (req, res) => 
+router.get('/asignar/:id',isLoggedIn, isProfe, async (req, res) => 
 {
     try {
         const { id } = req.params;
@@ -334,7 +334,7 @@ router.get('/asignar/:id', async (req, res) =>
 });
 
 //Ruta para agregar un usuario a un proyecto
-router.post('/asignar/:id', async (req, res) => {
+router.post('/asignar/:id',isLoggedIn, isProfe, async (req, res) => {
     try {
         const { id } = req.params;
         const pool = await db.iniciar();
@@ -426,7 +426,7 @@ router.post('/asignar/:id', async (req, res) => {
 });
 
 //Ruta para eliminar usuario de un proyecto
-router.get('/asignar/eliminar/:id/:id2', async (req, res) => {
+router.get('/asignar/eliminar/:id/:id2',isLoggedIn, isProfe, async (req, res) => {
     const {id,id2} = req.params;
     try 
     {

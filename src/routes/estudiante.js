@@ -3,12 +3,12 @@ const router = express.Router();
 
 //Instancia de mi base de datos
 const db = require('../database');
+const {isStudent,isLoggedIn} = require('../lib/validar');
 
 //Ruta para ver proyectos asignados y visualizar los proyectos
-router.get('/', async (req, res) => {
+router.get('/',isLoggedIn,isStudent, async (req, res) => {
     try {
-        //const id = req.user[0];
-        const id = 2;
+        const id = req.user[0];
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
 
@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/viewPE/:id', async (req, res) => {
+router.get('/viewPE/:id',isLoggedIn,isStudent, async (req, res) => {
 
     try {
         const { id } = req.params;
@@ -81,7 +81,7 @@ router.get('/viewPE/:id', async (req, res) => {
 
 });
 
-router.get('/viewRetroalimentacion/:ip/:ia',async(req,res)=>
+router.get('/viewRetroalimentacion/:ip/:ia',isLoggedIn,isStudent,async(req,res)=>
 {
     try 
     {
@@ -115,10 +115,9 @@ router.get('/viewRetroalimentacion/:ip/:ia',async(req,res)=>
     }
 });
 //Ruta para mostrrar vista de avances 
-router.get('/avances', async (req, res) => {
+router.get('/avances',isLoggedIn,isStudent, async (req, res) => {
     try {
-        //const id = req.user[0];
-        const id = 2;
+        const id = req.user[0];
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
 
@@ -161,7 +160,7 @@ router.get('/avances', async (req, res) => {
     }
 });
 
-router.get('/subirA/:idp/:idu/:av', async(req, res) => 
+router.get('/subirA/:idp/:idu/:av',isLoggedIn,isStudent, async(req, res) => 
 {
     try 
     {
@@ -218,7 +217,7 @@ router.get('/subirA/:idp/:idu/:av', async(req, res) =>
     
 });
 
-router.post('/subirA/:idp/:idu/:av', async(req, res) =>
+router.post('/subirA/:idp/:idu/:av',isLoggedIn,isStudent, async(req, res) =>
 {
     try 
     {
