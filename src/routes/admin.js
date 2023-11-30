@@ -207,6 +207,11 @@ router.get('/eliminarRegistrado/:id',isLoggedIn,isAdmin,async (req,res)=>{
     const id = req.params.id
     
     try {
+        if(req.user[7] == 1){
+            req.flash('successf','El usuario no se puede borrar, es un administrador del sistema');
+            res.redirect('/admin/registrados')
+        }
+
         const pool = await db.iniciar();
         const conn = await pool.getConnection();
 
