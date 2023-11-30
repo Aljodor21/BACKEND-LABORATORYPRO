@@ -206,17 +206,21 @@ router.post("/editRegistrados/:id",isLoggedIn,isAdmin,async (req,res)=>{
 router.get('/eliminarRegistrado/:id',isLoggedIn,isAdmin,async (req,res)=>{
     const id = req.params.id
     
-    try {
-        if(req.user[7] == 1)
+    try 
+    {
+        
+        const pool = await db.iniciar();
+        const conn = await pool.getConnection();
+
+        const admin = await conn.execute('SELECT CODIGO_TIPO FROM USUARIOS WHERE ID_USUARIO=:ID',[id]);
+
+        if(admin.rows[0][0] == 1)
         {
-            
+            console.log('Entro')
             req.flash('successf','El usuario no se puede borrar, es un administrador del sistema');
             return res.redirect('/admin/registrados')
             
         }
-
-        const pool = await db.iniciar();
-        const conn = await pool.getConnection();
 
         const result = await conn.execute('DELETE FROM USUARIOS WHERE ID_USUARIO=:ID',[id]);
         
