@@ -219,8 +219,11 @@ router.get('/eliminarRegistrado/:id',isLoggedIn,isAdmin,async (req,res)=>{
             req.flash('success','Usuario eliminado con exito');
             res.redirect('/admin/registrados')
         }
-    } catch (e) {
-        console.log('Error al realizar la consulta')
+    } catch (e) 
+    {
+        req.flash('successf','El usuario no se puede borrar, tiene proyectos asociados a el');
+        res.redirect('/admin/registrados')
+        console.log('Error al realizar la consulta ',e)
     }
 });
 
