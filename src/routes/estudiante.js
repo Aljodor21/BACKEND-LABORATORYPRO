@@ -99,15 +99,33 @@ router.get('/viewRetroalimentacion/:ip/:ia',isLoggedIn,isStudent,async(req,res)=
             introduccion: result.rows[0][2],
             fecha_creacion: result.rows[0][3]
         }
-        const result2 = await conn.execute('SELECT id_avance,descripcion_avance,retroalimentacion,nombre,papellido FROM AVANCES INNER JOIN USUARIOS ON id_usuario=codigo_profesor WHERE ID_AVANCE=:id', [ia]);
+        const result2 = await conn.execute('SELECT id_avance,descripcion_avance,retroalimentacion FROM AVANCES WHERE ID_AVANCE=:id ', [ia]);
 
-        const obj2 = {
-            id_avance: result2.rows[0][0],
-            descripcion_avance: result2.rows[0][1],
-            retroalimentacion: result2.rows[0][2],
-            nombre: result2.rows[0][3],
-            papellido: result2.rows[0][4]
+        let obj2 = {};
+        if(result2.rows[0][2] != null)
+        {
+            let result3 = await conn.execute('SELECT id_avance,descripcion_avance,retroalimentacion,nombre,papellido FROM AVANCES INNER JOIN USUARIOS ON ID_USUARIO=CODIGO_PROFESOR WHERE ID_AVANCE=:id ', [ia]);
+
+
+            obj2 = {
+                id_avance: result2.rows[0][0],
+                descripcion_avance: result2.rows[0][1],
+                retroalimentacion: result2.rows[0][2],
+                nombre: result3.rows[0][3],
+                papellido: result3.rows[0][4],
+                id_proyecto:obj.id_proyecto
+            }
+
+        }else
+        {
+            obj2 = {
+                id_avance: result2.rows[0][0],
+                descripcion_avance: result2.rows[0][1],
+                retroalimentacion: result2.rows[0][2],
+                id_proyecto:obj.id_proyecto
+            }
         }
+        
         
         res.render('estudiante/retroalimentacion',{layout:'main2',obj,obj2})
     } catch (error) 
