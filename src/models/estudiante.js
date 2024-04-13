@@ -3,7 +3,7 @@ const router = express.Router();
 
 //Instancia de mi base de datos
 const db = require('../database');
-const {isStudent,isLoggedIn} = require('../lib/validar');
+const {isStudent,isLoggedIn} = require('../controllers/validar');
 
 //Ruta para ver proyectos asignados y visualizar los proyectos
 router.get('/',isLoggedIn,isStudent, async (req, res) => {

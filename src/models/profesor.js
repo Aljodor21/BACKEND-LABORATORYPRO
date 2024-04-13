@@ -3,7 +3,7 @@ const router = express.Router();
 
 //Instancia de la BD para realizar las diferentes consultas y validador de rutas
 const db = require('../database');
-const {isLoggedIn,isProfe}= require('../lib/validar');
+const {isLoggedIn,isProfe}= require('../controllers/validar');
 
 //Rutas para visualizar todos los proyectos y para hacer El crud con los mismos
 router.get("/proyectos",isLoggedIn, isProfe, async (req, res) => {

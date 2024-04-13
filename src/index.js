@@ -10,7 +10,7 @@ const passport = require('passport');
 
 //Inicializaciones
 const app = express();
-require('./lib/passport');
+require('./controllers/passport');
 
 //Configuraciones del servidor
 app.set('port', process.env.PORT || 3000);
@@ -21,7 +21,7 @@ app.engine('.hbs', engine({
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
-    helpers: require('./lib/handlebars')
+    helpers: require('./controllers/handlebars')
 }));
 app.set('view engine', '.hbs');
 
@@ -47,12 +47,12 @@ app.use((req, res, next) => {
 })
 
 //Rutas
-app.use(require('./routes/index'));
-app.use("/login", require('./routes/login'));
-app.use("/admin", require('./routes/admin'));
-app.use("/estudiante", require('./routes/estudiante'));
-app.use("/profesor", require('./routes/profesor'));
-app.use('/perfil', require('./routes/perfil'));
+app.use(require('./models/index'));
+app.use("/login", require('./models/login'));
+app.use("/admin", require('./models/admin'));
+app.use("/estudiante", require('./models/estudiante'));
+app.use("/profesor", require('./models/profesor'));
+app.use('/perfil', require('./models/perfil'));
 
 //Archivos publicos de mi servidor
 app.use(express.static(path.join(__dirname, 'public')));

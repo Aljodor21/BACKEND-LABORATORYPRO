@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const email = require('../lib/email');
+const email = require('../controllers/email');
 
 //Creamos una instancia de la base de datos, para realizar las diferentes consultas y tambien una instancia de nuestra authenticacion, tambien un modulo para encriptar contraseña, tambien el validador de rutas
 const db = require('../database')
 const passport = require('passport');
-const bcrypt = require('../lib/helpers');
-const {isNotLoggeIn} = require('../lib/validar');
+const bcrypt = require('../controllers/helpers');
+const {isNotLoggeIn} = require('../controllers/validar');
 
 
 router.get('/',isNotLoggeIn, (req, res) => {

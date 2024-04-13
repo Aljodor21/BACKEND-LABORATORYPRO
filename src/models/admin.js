@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const email = require('../lib/email');
+const email = require('../controllers/email');
 
 //Instancia de nuestra base de datos
 const db = require('../database');
-const {isAdmin,isLoggedIn} = require('../lib/validar');
+const {isAdmin,isLoggedIn} = require('../controllers/validar');
 
 //Metodo para mostrar los usuarios con solicitudes de tipo pendiente
 router.get("/",isLoggedIn,isAdmin,async (req,res)=>{

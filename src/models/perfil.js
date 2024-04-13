@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 //Instancia de la base de datos e importamos validador de sesión
-const {isLoggedIn} = require('../lib/validar');
+const {isLoggedIn} = require('../controllers/validar');
 const db = require('../database');
 
 router.get('/',isLoggedIn, async (req, res) => 
