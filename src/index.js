@@ -47,12 +47,12 @@ app.use((req, res, next) => {
 })
 
 //Rutas
-app.use(require('./models/index'));
-app.use("/login", require('./models/login'));
-app.use("/admin", require('./models/admin'));
-app.use("/estudiante", require('./models/estudiante'));
-app.use("/profesor", require('./models/profesor'));
-app.use('/perfil', require('./models/perfil'));
+app.use(require('./models/routes/index'));
+app.use("/login", require('./models/routes/login'));
+app.use("/admin", require('./models/routes/admin'));
+app.use("/estudiante", require('./models/routes/estudiante'));
+app.use("/profesor", require('./models/routes/profesor'));
+app.use('/perfil', require('./models/routes/perfil'));
 
 //Archivos publicos de mi servidor
 app.use(express.static(path.join(__dirname, 'public')));

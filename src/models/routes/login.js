@@ -1,15 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const email = require('../controllers/email');
+const email = require('../../controllers/email');
 
 //Creamos una instancia de la base de datos, para realizar las diferentes consultas y tambien una instancia de nuestra authenticacion, tambien un modulo para encriptar contraseña, tambien el validador de rutas
-const db = require('../database')
+const db = require('../../database')
 const passport = require('passport');
-const bcrypt = require('../controllers/helpers');
-const {isNotLoggeIn} = require('../controllers/validar');
+const bcrypt = require('../../controllers/helpers');
+const {isNotLoggeIn} = require('../../controllers/validar');
 
 
-router.get('/',isNotLoggeIn, (req, res) => {
+router.get('/',isNotLoggeIn, (req, res) => 
+{
+    res.status(200);
     res.render('login/ingresar')
 
 });
@@ -24,6 +26,7 @@ router.post('/',isNotLoggeIn, (req,res,next)=>{
 
 router.get('/registro',isNotLoggeIn, async(req, res) => 
 {
+    res.status(200);
     try 
     {
         const pool = await db.iniciar();
