@@ -193,3 +193,130 @@ describe('Probando el admin de mi página', () =>
    
 });
 
+
+//Probando el profesor
+describe('Probando el perfil profesor de mi página', () => 
+{
+    //Proyectos
+    test('Probando el GET del profesor/proyectos', async () => 
+    {
+        const response = await request(app).get('/profesor/proyectos');
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el POST del profesor/proyectos', async () =>
+    {
+        const response = await request(app).post('/profesor/proyectos').send({
+            nombre_proyecto: 'Proyecto 1',
+            introduccion: 'Descripcion 1'});
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el GET del profesor/editProyecto/:id', async () =>
+    {
+        const response = await request(app).get('/profesor/editProyecto/1');
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el POST del profesor/editProyecto/:id', async () =>
+    {
+        const response = await request(app).post('/profesor/editProyecto/1').send({
+            nombre_proyecto: 'Proyecto 1',
+            introduccion: 'Descripcion 1'});
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el GET del profesor/borrarProyecto/:id', async () =>
+    {
+        const response = await request(app).get('/profesor/borrarProyecto/1');
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el GET del profesor/viewPP/:id', async () =>
+    {
+        const response = await request(app).get('/profesor/viewPP/1');
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el GET del profesor/retroalimentar/:ip/:ia', async () =>
+    {
+        const response = await request(app).get('/profesor/retroalimentar/1/1');
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el POST del profesor/retroalimentar/:ip/:ia', async () =>
+    {
+        const response = await request(app).post('/profesor/retroalimentar/1/1').send({
+            retroalimentacion: 'Retroalimentacion 1'});
+        expect(response.statusCode).toBe(302);
+    });
+
+    //Integrantes
+    test('Probando el GET del profesor/', async () => 
+    {
+        const response = await request(app).get('/profesor/');
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el GET del profesor/asignar/:id', async () =>
+    {
+        const response = await request(app).get('/profesor/asignar/1');
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el POST del profesor/asignar/:id', async () =>
+    {
+        const response = await request(app).post('/profesor/asignar/1').send({
+            id: '1'});
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el GET del profesor/asignar/eliminar/:id/:id2', async () =>
+    {
+        const response = await request(app).get('/profesor/asignar/eliminar/1/1');
+        expect(response.statusCode).toBe(302);
+    });
+});
+
+//Probando el estudiante
+describe('Probando el perfil estudiante de mi página', () =>
+{
+    //Proyectos
+    test('Probando el GET del /estudiante/', async () => 
+    {
+        const response = await request(app).get('/estudiante/');
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el GET del estudiante/viewPE/:id', async () =>
+    {
+        const response = await request(app).get('/estudiante/viewPE/1');
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el GET del estudiante/viewRetroalimentacion/:ip/:ia', async () =>
+    {
+        const response = await request(app).get('/estudiante/viewRetroalimentacion/1/1');
+        expect(response.statusCode).toBe(302);
+    });
+
+    //Avances
+    test('Probando el GET del estudiante/avances/', async () =>
+    {
+        const response = await request(app).get('/estudiante/avances/');
+        expect(response.statusCode).toBe(302);
+    });
+    
+    test('Probando el GET del estudiante/subirA/:idp/:idu/:av', async () =>
+    {
+        const response = await request(app).get('/estudiante/subirA/1/1/1');
+        expect(response.statusCode).toBe(302);
+    });
+
+    test('Probando el POST del estudiante/subirA/:idp/:idu/:av', async () =>
+    {
+        const response = await request(app).post('/estudiante/subirA/1/1/1').send({
+            avance: 'Avance 1'});
+        expect(response.statusCode).toBe(302);
+    });
+});

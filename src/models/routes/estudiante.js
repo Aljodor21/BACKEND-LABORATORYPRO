@@ -5,6 +5,8 @@ const router = express.Router();
 const db = require('../../database');
 const {isStudent,isLoggedIn} = require('../../controllers/validar');
 
+//6 Funciones
+
 //Ruta para ver proyectos asignados y visualizar los proyectos
 router.get('/',isLoggedIn,isStudent, async (req, res) => {
     try {
