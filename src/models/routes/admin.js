@@ -6,6 +6,8 @@ const email = require('../../controllers/email');
 const db = require('../../database');
 const {isAdmin,isLoggedIn} = require('../../controllers/validar');
 
+//17 FUNCIONES
+
 //Metodo para mostrar los usuarios con solicitudes de tipo pendiente
 router.get("/",isLoggedIn,isAdmin,async (req,res)=>{
 
@@ -29,8 +31,8 @@ router.get("/",isLoggedIn,isAdmin,async (req,res)=>{
                 codigo_tipo:row[5]
             });
         })
-
-        res.render("admin/solicitudes",{layout: 'main2',obj});
+        console.log(req.params,req.body)
+        res.status(200).render("admin/solicitudes",{layout: 'main2',obj});
 
     }catch(e){
         console.log('Error al realizar la consulta: ',e);
@@ -124,7 +126,7 @@ router.get("/registrados",isLoggedIn,isAdmin,async (req,res)=>{
             });
         });
 
-        res.render("admin/registrados",{layout:'main2',obj});
+        res.status(200).render("admin/registrados",{layout:'main2',obj});
     } catch (e) {
         console.log('Error al realizar la consulta',e)
     }
@@ -261,7 +263,7 @@ router.get("/estados",isLoggedIn,isAdmin,async(req,res)=>{
         const activo = await conn.execute('SELECT * FROM USUARIOS WHERE CODIGO_ESTADO = 2');
         const rechazado = await conn.execute('SELECT * FROM USUARIOS WHERE CODIGO_ESTADO = 3');
 
-        res.render("admin/estados",{layout:'main2',obj,pendiente,activo,rechazado});
+        res.status(200).render("admin/estados",{layout:'main2',obj,pendiente,activo,rechazado});
     } catch (e) 
     {
         console.log('Error al consultar los estados de la aplicación ',e)
@@ -396,7 +398,7 @@ router.get("/tipos",isLoggedIn,isAdmin,async (req,res)=>{
         });
 
 
-        res.render("admin/tipos",{layout:'main2',obj});
+        res.status(200).render("admin/tipos",{layout:'main2',obj});
     } catch (e) {
         console.log('Error al consultar los tipos de cuentas ', e)
     }

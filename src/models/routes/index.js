@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+//2 FUNCIONES
 
 router.get('/',(req,res)=>
 {

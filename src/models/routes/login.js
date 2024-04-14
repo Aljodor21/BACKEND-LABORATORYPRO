@@ -8,11 +8,11 @@ const passport = require('passport');
 const bcrypt = require('../../controllers/helpers');
 const {isNotLoggeIn} = require('../../controllers/validar');
 
+//5 FUNCIONES
 
 router.get('/',isNotLoggeIn, (req, res) => 
 {
-    res.status(200);
-    res.render('login/ingresar')
+    res.status(200).render('login/ingresar')
 
 });
 
@@ -26,7 +26,7 @@ router.post('/',isNotLoggeIn, (req,res,next)=>{
 
 router.get('/registro',isNotLoggeIn, async(req, res) => 
 {
-    res.status(200);
+    
     try 
     {
         const pool = await db.iniciar();
@@ -39,11 +39,12 @@ router.get('/registro',isNotLoggeIn, async(req, res) =>
         {
             data.push(row[1]);
         })
-        console.log(data)
-        res.render('login/registrar',{result:data})
+       
+
+        res.status(200).render('login/registrar',{result:data})
     } catch (error) 
     {
-        console.log('Error al consultar los tipos de usuarios permitidos')
+        console.log('Error al consultar los tipos de usuarios permitidos', error)
     }
 
 });
@@ -81,7 +82,7 @@ router.post('/registro',isNotLoggeIn, async (req, res) => {
             await conn.commit();
             await conn.release();
             req.flash('success','Usuario creado, debes esperar aprobación del administrador');
-            res.redirect('/');
+            res.status(302).redirect('/');
 
         } else {
             await conn.release();

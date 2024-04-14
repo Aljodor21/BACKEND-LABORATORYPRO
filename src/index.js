@@ -57,8 +57,4 @@ app.use('/perfil', require('./models/routes/perfil'));
 //Archivos publicos de mi servidor
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Inicializacion de mi servidor
-app.listen(app.get('port'), (req) => {
-    console.log(`Servidor en el puerto ${app.get('port')}`);
-    
-})
+module.exports = app;

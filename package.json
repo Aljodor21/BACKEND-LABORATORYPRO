@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
+    "dev": "nodemon server",
+    "start": "node server",
     "build": "npm install",
     "test": "jest"
   },
@@ -26,10 +26,14 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "jest": "^29.7.0",
     "nodemon": "^3.0.1",
+    "superagent": "^8.1.2",
     "supertest": "^6.3.4"
-  }, "jest": {
+  },
+  "jest": {
     "testEnvironment": "node"
   }
 }

@@ -5,6 +5,8 @@ const router = express.Router();
 const db = require('../../database');
 const {isLoggedIn,isProfe}= require('../../controllers/validar');
 
+//12 FUNCIONES
+
 //Rutas para visualizar todos los proyectos y para hacer El crud con los mismos
 router.get("/proyectos",isLoggedIn, isProfe, async (req, res) => {
     try {
